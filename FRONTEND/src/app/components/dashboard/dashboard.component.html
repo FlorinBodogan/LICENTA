@@ -1,0 +1,15 @@
+<body>
+    <div class="home" *ngFor="let user of userInfo$ | async">
+        <section class="hero-section">
+            <div class="home-container">
+                <div class="hero-text-box">
+                    <h1 class="heading-primary heading-primary--hero">Bun venit înapoi, {{user.name}}!</h1>
+                    <p class="hero-text">
+                        Vezi în ce parametrii te afli!
+                    </p>
+                    <a  routerLink="/calculator" class="btn">Incepe acum</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    </body>

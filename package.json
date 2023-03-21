@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.21"
+  },
+  "scripts": {
+    "api": "cd BACKEND && npm start",
+    "front": "cd FRONTEND && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run api\" \"npm run front\" "
+  },
+  "dependencies": {
+    "chart.js": "^4.2.1"
+  }
+}

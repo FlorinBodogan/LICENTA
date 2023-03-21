@@ -1,0 +1,52 @@
+<body>
+<section class="calculator-section">
+    <div class="container">
+        <div class="calculator">
+            <div class="calculator-text-box">
+                <h2 class="heading-secondary form">Calculator Rata Metabolica Bazala</h2>
+            </div>
+            <form (create)="collectDataRmb()" [formGroup]="calculatorForm" (ngSubmit)="calculateRmb(calculatorForm.value)" #formDirective="ngForm" class="calculator-form grid-form" action="#">
+                <div>
+                    <label for="gender">Gen</label>
+                    <select id="gender" type="string" formControlName="gender" required>
+                        <option value="" placeholder="masculin/feminin">Alege o varianta</option>
+                        <option value="masculin">masculin</option>
+                        <option value="feminin">feminin</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="age">Varsta</label>
+                    <input id="age" type="number" formControlName="age" placeholder="25 ani" required>
+                </div>
+                <div>
+                    <label for="height">Inaltime</label>
+                    <input id="height" type="number" formControlName="height" placeholder="175 cm" required>
+                </div>
+                <div>
+                    <label for="weight">Kilograme</label>
+                    <input id="weight" type="number" formControlName="weight" placeholder="75 kg" required>
+                </div>
+                <div>
+                    <label for="activitylevel"> Nivel de activitate </label>
+                    <!-- <input id="activitylevel" type="string" formControlName="activitylevel" placeholder="redus/mediu/ridicat" required> -->
+                    <select id="activitylevel" id="activitylevel" type="string" formControlName="activitylevel" placeholder="redus/mediu/ridicat.." required>
+                        <option value="">Alege o varianta</option>
+                        <option value="sedentar">Sedentar</option>
+                        <option value="scazut">Scazut</option>
+                        <option value="moderat">Moderat</option>
+                        <option value="ridicat">Ridicat</option>
+                        <option value="foarteridicat">Foarte ridicat</option>
+                    </select>
+                </div>
+                <button class="btn--form">Calculeaza</button>
+            </form>
+            <div class="calculator-result" *ngFor="let calculus of calculus$ | async">
+                <div class="result">
+                   <p>Rezultat: {{ calculus.result }} calorii</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<app-footer></app-footer>

@@ -1,0 +1,64 @@
+.userprofile {
+    height: 88vh;
+    width: 30vw;
+}
+
+.userprofile-container {
+    display: flex;
+    text-align: center;
+    height: 88vh;
+    background-image: linear-gradient(rgba(80, 137, 106, 0.4), rgba(71, 137, 79, 0.4)), url(/assets/img/hero5.jpg);
+    background-size: cover;
+}
+
+.userprofile-statistics-container {
+    place-items: center;
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.5);
+    padding: 1.2rem;
+    border-radius: 9px;
+}
+
+.user-name {
+    color: #eee;
+    font-size: 4.8rem;
+    line-height: 1.6rem;
+    padding-top: 12vh;
+    margin-bottom: 4.8rem;
+}
+
+.user-photo {
+    margin-bottom: 2.4rem;
+}
+
+.img-user {
+    border-radius: 200px 200px 200px 200px;
+}
+
+.img-statistics {
+    padding-top: 4.8rem;
+    padding-left: 6.4rem;
+}
+
+.user-description {
+    color: #fff;
+    font-size: 2.4rem;
+}
+
+.btn{
+    font-size: 2rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.3rem 0.4rem;
+    box-shadow: inset 0 0 0 3px #fff;
+    border-radius: 20px;
+    color: #1a1616;
+    transition: all 0.3s;
+}
+
+.btn:hover, .btn:active{
+    box-shadow: inset 0 0 0 3px #3eb058;
+    background-color: #3eb058;
+    border-radius: 20px;
+    color: #201b1b;
+}

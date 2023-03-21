@@ -1,0 +1,26 @@
+.about-section{
+    margin: 9.6rem 0;
+}
+
+.step-number{
+    font-size: 8.4rem;
+    font-weight: 600;
+    color: #bbb;
+    margin-bottom: 1.2rem;
+}
+
+.description-step{
+    font-size: 2rem;
+    line-height: 2;
+}
+
+.img-step-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-step{
+    width: 80%;
+}

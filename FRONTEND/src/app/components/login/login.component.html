@@ -1,0 +1,27 @@
+<body>
+    <section class="registration-section">
+        <div class="container">
+            <div class="registration">
+                <div class="registration-text-box">
+                    <h2 class="heading-secondary">Logheaza-te</h2>
+                    <p class="registration-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quos perferendis.                    
+                    </p>
+                    <form [formGroup]="loginForm" (ngSubmit)="login()" class="registration-form">
+                        <div>
+                            <label for="user-name">Nume utilizator</label>
+                            <input type="text" formControlName="name" placeholder="Popescu" required>
+                        </div>
+                        <div>
+                            <label for="password">Parola</label>
+                            <input type="password" formControlName="password" placeholder="Parola" required>
+                        </div>
+                        <button class="btn--form">Intra in cont</button>
+                    </form>
+                </div>
+                    <div class="registration-img-box" role="img" aria-label="fata draguta care face sport">                    
+                    </div> 
+            </div>
+        </div>
+    </section>
+    <app-footer></app-footer>
+    </body> 

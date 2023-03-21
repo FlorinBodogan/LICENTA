@@ -1,0 +1,28 @@
+<body>
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator">
+                <div class="calculator-text-box">
+                    <h2 class="heading-secondary form">Calculator Indice Masa Corporala</h2>
+                </div>
+                <form (create)="collectDataBmi()" [formGroup]="calculatorForm" (ngSubmit)="calculateBmi(calculatorForm.value)" #formDirective="ngForm" class="calculator-form grid-form" action="#">
+                    <div>
+                        <label for="weight">Greutate</label>
+                        <input id="weight" type="number" formControlName="weight" placeholder="55 kg" required>
+                    </div>
+                    <div>
+                        <label for="height">Inaltime</label>
+                        <input id="height" type="number" formControlName="height" placeholder="1.75 m" required>
+                    </div>              
+                    <button class="btn--form">Calculeaza</button>
+                </form>
+                <div class="calculator-result" *ngFor="let calculus of calculus$ | async">
+                    <div class="result">
+                      <p>Rezultat: {{ calculus.result }} % grasime corporala</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </body>
+    <app-footer></app-footer>

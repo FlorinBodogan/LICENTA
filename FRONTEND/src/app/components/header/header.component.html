@@ -1,0 +1,18 @@
+<header>
+    <div class="home">
+        <nav class="nav container">
+            <a routerLink="/home" *ngIf="!isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
+            <a routerLink="/dashboard" *ngIf="isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
+                <ul class="main-nav-list">
+                    <li><a class="main-nav-link" routerLink="/about">Despre <fa-icon [icon]="faCircleInfo"></fa-icon></a></li>                                   
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculator">Calculator RMB <fa-icon [icon]="faCalculator"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculatorbmi">Calculator BMI <fa-icon [icon]="faCalculator"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/userprofile">Contul Meu <fa-icon [icon]="faUser"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/statistics">Statistici <fa-icon [icon]="faChartSimple"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="!isAuthenticated" routerLink="/login">Logare <fa-icon [icon]="faRightToBracket"></fa-icon></a></li>                  
+                    <li><a class="main-nav-link" *ngIf="!isAuthenticated" routerLink="/register">Inregistrare <fa-icon [icon]="faUserPlus"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" (click)="logout()" routerLink="/login">Delogare <fa-icon [icon]="faRightFromBracket"></fa-icon></a></li>
+                </ul>
+        </nav>
+    </div>
+</header>

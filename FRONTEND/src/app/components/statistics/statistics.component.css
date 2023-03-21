@@ -1,0 +1,35 @@
+.statistics-section{
+    padding: 9.6rem 0 9.6rem 0;
+}
+
+.container--statistics{
+    margin-bottom: 9.6rem;
+}
+
+.subheading--statistics{
+    margin-top: 2.4rem;
+}
+
+.heading-secondary--statistics{
+    text-align: center;
+    margin-bottom: 4.8rem;
+}
+
+.statistics-description{
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-weight: 500;
+    margin-bottom: 3.2rem;
+    text-align: center;
+}
+
+.grid--chart{
+    place-items: center;
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+    padding: 1.2rem;
+    border-radius: 9px;
+}
+
+.chart-img{
+    width: 60%;
+}

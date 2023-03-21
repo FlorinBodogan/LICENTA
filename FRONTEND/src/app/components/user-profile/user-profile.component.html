@@ -1,0 +1,31 @@
+<main>
+    <body>
+        <div class="userprofile-container">
+            <div class="userprofile" *ngFor="let user of userInfo$ | async">
+                <div class="user-name">
+                    {{user.name}}
+                </div>
+                <div class="user-photo">                 
+                    <!-- <form [formGroup]="uploadForm" (ngSubmit)="uploadPhoto()" enctype='multipart/form-data'>
+                        <div class="image-upload">
+                           <input type="file" formControlName="image"> 
+                           <button class="btn"><fa-icon [icon]="faUpload"></fa-icon></button> 
+                        </div>
+                    </form> -->
+                    <img src="assets/img/user.png" class="img-user" alt="user photo" width="270" height="250"> 
+                </div>
+                <div class="user-description">
+                    Detalii cont:
+                    <br>
+                    Nume utilizator: {{user.name}}
+                    <br>
+                    Email: {{user.email}}
+                </div>
+             </div>
+             <canvas id="myChart" class="userprofile-statistics-container"></canvas>
+        </div>
+            
+        
+    </body>
+  <app-footer></app-footer>
+</main>

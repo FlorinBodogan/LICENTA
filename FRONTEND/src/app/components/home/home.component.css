@@ -1,0 +1,46 @@
+.home{
+    height: 88vh;
+    background-image: linear-gradient(rgba(80, 137, 106, 0.4), rgba(71, 137, 79, 0.4)), url(/assets/img/hero5.jpg);
+    background-size: cover;
+}
+
+.home-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.hero-text-box{
+    color: #eee;
+}
+
+.heading-primary--hero{
+    color: #fff;
+}
+
+.hero-text{
+    font-size: 2rem;
+    line-height: 1.6rem;
+    margin-bottom: 4.8rem;
+}
+
+
+
+.btn--form{
+    background-color: #001b00;
+    color: #fff;
+    border-radius: 9px;
+    align-self: end;
+    padding: 1.2rem;
+    transition: all 0.5s;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.btn--form:hover, .btn--form:active{
+    background-color: #fff;
+    color: #333;
+}
+
