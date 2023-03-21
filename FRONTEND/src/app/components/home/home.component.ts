@@ -9,6 +9,6 @@ export class HomeComponent {
     home = {
       h1text: "Un corp sănătos are o greutate normală",
       ptext: "Află mai multe despre aceasta aplicație!",
-      btntext: "Mai multe"
+      btntext: "Despre"
     }
 }
