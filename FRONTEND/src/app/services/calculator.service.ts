@@ -46,6 +46,10 @@ export class CalculatorService {
     return this.http.get<Bmi_result[]>(`${this.url}/bmi/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Bmi_result[]>("fetchBmiDate", [])));
   }
 
+  fetchBmiAllCategories(): Observable<Bmi_result[]>{
+    return this.http.get<Bmi_result[]>(`${this.url}/bmi/category`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Bmi_result[]>("fetchBmiDate", [])));
+  }
+
   collectDataRmb(calculatorFormData: Partial<UserInfo>, userId: Pick<User, "id">): Observable<UserInfo> {
     return this.http
     .post<UserInfo>(`${this.url}/rmb`, {gender: calculatorFormData.gender, age: calculatorFormData.age, height: calculatorFormData.height, weight: calculatorFormData.weight, activitylevel: calculatorFormData.activitylevel, user: userId}, this.httpOptions)
@@ -69,4 +73,9 @@ export class CalculatorService {
       catchError(this.errorHandlerService.handleError<UserInfo>("deleteCalculus"))
     )
   }
+
+  getCountForBmiCategory(category: string): Observable<number> {
+    return this.http.get<number>(`${this.url}/bmi/categoryCount/${category}`);
+  }
+  
 }

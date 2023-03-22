@@ -8,6 +8,7 @@ import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'node_modules/chart.js';
+import { Rmb_result } from 'src/app/models/Rmb_result';
 Chart.register(...registerables); 
 
 @Component({
@@ -22,8 +23,12 @@ export class UserProfileComponent implements OnInit {
 
   userId: Pick<User, "id">;
   userInfo$: Observable<User[]>;
+  
   userBmiResult: Observable<Bmi_result[]>;
   userBmiDateResult: Observable<Bmi_result[]>;
+
+  userRmbResult: Observable<Rmb_result[]>;
+  userRmbDateResult: Observable<Rmb_result[]>;
   //userPhoto$: Observable<Images[]>;
 
   constructor(private userService: UserService, private calculatorService: CalculatorService) {}
@@ -34,16 +39,21 @@ export class UserProfileComponent implements OnInit {
 
     this.userBmiResult = this.fetchAllBmi();
     this.userBmiDateResult = this.fetchBmiAllDate();
+
+    this.userRmbResult = this.fetchAllRmb();
+    this.userRmbDateResult = this.fetchRmbAllDate();
     
-    this.displayChart();
+    this.displayChartBMI();
+    this.displayChartRMB();
     //this.userPhoto$ = this.fetchUserPhoto();
     //this.uploadForm = this.createFormGroup();
+
   }
 
-   //chart
-   displayChart() {
-    const lineChart = new Chart('myChart', {
-      type: 'line',
+   //INDICE MASA CORPORALA
+   displayChartBMI() {
+    const lineChart = new Chart('chartBMI', {
+      type: 'bar',
       data: {
         labels: [] as Array<string>, 
         datasets: [{
@@ -51,8 +61,7 @@ export class UserProfileComponent implements OnInit {
           data: [] as Array<number>,
           borderWidth: 3,
           borderColor: 'white',
-          backgroundColor: ['blue', 'yellow', 'green', 'purple', 'orange'],
-          pointRadius: 7
+          backgroundColor: ['yellow'],
         }]
       },
       options: {
@@ -84,7 +93,7 @@ export class UserProfileComponent implements OnInit {
         }
       }
     });
-  
+
     this.userBmiResult.subscribe((data) => {
       const bmiData = data.map((d) => d.result);
       lineChart.data.datasets[0].data = bmiData;
@@ -97,10 +106,64 @@ export class UserProfileComponent implements OnInit {
       lineChart.update();
     });
   }
-  
-  
-  
 
+   //RATA METABOLICA BAZALA
+   displayChartRMB() {
+    const lineChart = new Chart('chartRMB', {
+      type: 'bar',
+      data: {
+        labels: [] as Array<string>, 
+        datasets: [{
+          label: 'Evolutia ratei metabolice bazale',
+          data: [] as Array<number>,
+          borderWidth: 3,
+          borderColor: 'white',
+          backgroundColor: ['blue'],
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              color: 'white'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: 'white',
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white' 
+            }
+          },
+          title: {
+            display: true,
+            text: 'RMB',
+            color: 'white' 
+          }
+        }
+      }
+    });
+
+    this.userRmbResult.subscribe((data) => {
+      const rmbData = data.map((d) => d.result);
+      lineChart.data.datasets[0].data = rmbData;
+      lineChart.update();
+    });
+  
+    this.userRmbDateResult.subscribe((data) => {
+      const rmbDate = data.map((d) => new Date(d.date).toLocaleDateString());
+      lineChart.data.labels = rmbDate;
+      lineChart.update();
+    });
+  }
+  
   createFormGroup(): FormGroup<any> {
     return new FormGroup({
       image: new FormControl("", [Validators.required, Validators.minLength(1)]),
@@ -120,12 +183,21 @@ export class UserProfileComponent implements OnInit {
     return this.userService.fetchUserPhoto();
   }
 
-  //user statistics
+  //BMI
   fetchAllBmi(): Observable<Bmi_result[]> {
     return this.calculatorService.fetchAllBmi();
   }
   fetchBmiAllDate(): Observable<Bmi_result[]> {
     return this.calculatorService.fetchBmiAllDate();
+  }
+
+
+  //RMB
+  fetchAllRmb(): Observable<Rmb_result[]> {
+    return this.calculatorService.fetchAllRmb();
+  }
+  fetchRmbAllDate(): Observable<Rmb_result[]> {
+    return this.calculatorService.fetchRmbAllDate();
   }
 
 }

@@ -19,6 +19,7 @@ module.exports = class UserInfo {
         return db.execute(`SELECT * FROM userinfo WHERE user=${token.userId}`);
     }
 
+    //RATA METABOLICA BAZALA
     static fetchRmbResultById(userId) {
         return db.execute(`SELECT * FROM rmb_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
     }
@@ -35,22 +36,6 @@ module.exports = class UserInfo {
         return db.execute(`SELECT date FROM rmb_results WHERE user = ? ORDER BY id`, [userId]);
     }
 
-    static fetchBmiResultById(userId) {
-        return db.execute(`SELECT * FROM bmi_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
-    }
-
-    static fetchBmiAllResultById(userId) {
-        return db.execute(`SELECT result FROM bmi_results WHERE user = ? ORDER BY id`, [userId]);
-    }
-
-    static fetchBmiDateById(userId) {
-        return db.execute(`SELECT date FROM bmi_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
-    }
-
-    static fetchBmiAllDateById(userId) {
-        return db.execute(`SELECT date FROM bmi_results WHERE user = ? ORDER BY id`, [userId]);
-    }
-
     static saveDetailsForRmb(rmb) {
         return db.execute(
             'INSERT INTO userinfo (gender, age, height, weight, activitylevel, user) VALUES (?, ?, ?, ?, ?, ?)',
@@ -58,13 +43,6 @@ module.exports = class UserInfo {
         );
     }
 
-    static saveDetailsForBmi(bmi) {
-        return db.execute(
-            'INSERT INTO userinfo ( weight, height, user) VALUES (?, ?, ?)',
-            [bmi.weight, bmi.height, bmi.user]
-        );
-    }
-    
     static saveRmbResult(rmb) {
         return db.execute(
           'INSERT INTO rmb_results (result, user) VALUES (?, ?)',
@@ -72,13 +50,6 @@ module.exports = class UserInfo {
         );
     }
 
-    static saveBmiResult(bmi) {
-        return db.execute(
-          'INSERT INTO bmi_results (result, user) VALUES (?, ?)',
-          [bmi.resultBmi, bmi.user]
-        );
-    }
-    
     static calculateRmb(rmbDetails) {
         if (isNaN(rmbDetails.weight) || isNaN(rmbDetails.height) || isNaN(rmbDetails.age)) {
             throw new Error("Valori invalide");
@@ -103,15 +74,85 @@ module.exports = class UserInfo {
         }
     }
 
+    //INDICE DE MASA CORPORALA
+    static fetchBmiResultById(userId) {
+        return db.execute(`SELECT * FROM bmi_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
+    }
+
+    static fetchBmiAllResultById(userId) {
+        return db.execute(`SELECT result FROM bmi_results WHERE user = ? ORDER BY id`, [userId]);
+    }
+
+    static fetchBmiAllResult() {
+        return db.execute(`SELECT result FROM bmi_results ORDER BY id`);
+    }
+
+    static fetchBmiAllCategories() {
+        return db.execute(`SELECT category FROM bmi_results ORDER BY id`);
+    }
+
+    static fetchBmiDateById(userId) {
+        return db.execute(`SELECT date FROM bmi_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
+    }
+
+    static fetchBmiAllDateById(userId) {
+        return db.execute(`SELECT date FROM bmi_results WHERE user = ? ORDER BY id`, [userId]);
+    }
+
+    static saveDetailsForBmi(bmi) {
+        return db.execute(
+            'INSERT INTO userinfo ( weight, height, user) VALUES (?, ?, ?)',
+            [bmi.weight, bmi.height, bmi.user]
+        );
+    }
+
+    static saveBmiResult(bmi) {
+        return db.execute(
+          'INSERT INTO bmi_results (result,category, user) VALUES (?, ?, ?)',
+          [bmi.resultBmi, bmi.user]
+        );
+    }
+
+    static saveBmiResult(bmi) {
+        return db.execute(
+          'INSERT INTO bmi_results (result, category, user) VALUES (?, ?, ?)',
+          [bmi.resultBmi, bmi.category, bmi.user]
+        );
+    }
+
     static calculateBmi(bmiDetails) {
         if (isNaN(bmiDetails.weight) || isNaN(bmiDetails.height)) {
-            throw new Error("Valori invalide");
+          throw new Error("Valori invalide");
         }
-    
+      
         const bmi = bmiDetails.weight / (bmiDetails.height * bmiDetails.height);
-        return bmi.toFixed(2);
+        const roundedBmi = bmi.toFixed(2);
+      
+        let category = "";
+        if (roundedBmi < 18.5) {
+          category = "Subponderal";
+        } else if (18.5 <= roundedBmi && roundedBmi < 25) {
+          category = "Normal";
+        } else if (25 <= roundedBmi && roundedBmi < 30) {
+          category = "Supraponderal";
+        } else if (roundedBmi >= 30) {
+          category = "Obez";
+        }
+      
+        return { bmi: roundedBmi, category };
     }
-    
+
+    static async getCountForBmiCategory(category) {
+        try {
+          const [rows, fields] = await db.execute(
+            'SELECT COUNT(*) AS count FROM bmi_results WHERE category = ?',
+            [category]
+          );
+          return rows[0].count;
+        } catch (e) {
+          throw new Error(`A avut loc o eroare`);
+        }
+    }
 
     static delete(id) {
         return db.execute('DELETE FROM userinfo WHERE id = ?', [id]);

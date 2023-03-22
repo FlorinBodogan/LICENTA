@@ -11,6 +11,8 @@ router.get('/rmb/date', auth, userinfoController.fetchRmbAllDateById);
 router.get('/bmi', auth, userinfoController.fetchBmiResultById);
 router.get('/bmi/all', auth, userinfoController.fetchBmiAllResultById);
 router.get('/bmi/date', auth, userinfoController.fetchBmiAllDateById);
+router.get('/bmi/category', auth, userinfoController.fetchBmiAllCategories);
+router.get('/bmi/categoryCount', auth, userinfoController.getBmiCategoryCounts);
 
 router.post(
     '/rmb',

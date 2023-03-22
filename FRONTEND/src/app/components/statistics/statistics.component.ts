@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'node_modules/chart.js';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Bmi_result } from 'src/app/models/Bmi_result';
 import { CalculatorService } from 'src/app/services/calculator.service';
 Chart.register(...registerables); 
@@ -11,79 +11,94 @@ Chart.register(...registerables);
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  userBmiResult: Observable<Bmi_result[]>;
-  userBmiDateResult: Observable<Bmi_result[]>;
 
-  constructor(private calculatorService:CalculatorService) {}
+constructor(private calculatorService:CalculatorService) {}
 
-  ngOnInit(): void {
-    this.userBmiResult = this.fetchAllBmi();
-    this.userBmiDateResult = this.fetchBmiAllDate();
-    this.displayChart();
-  }
+userBmiCategory: Observable<Bmi_result[]>;
+lineChart: any;
 
-  displayChart() {
-    const lineChart = new Chart('barChart', {
-      type: 'bar',
-      data: {
-        labels: [] as Array<string>, 
-        datasets: [{
-          label: 'Evolutia indicelui de masa corporala',
-          data: [] as Array<number>,
-          borderWidth: 3,
-          borderColor: 'white',
-          backgroundColor: ['blue', 'yellow', 'green', 'purple', 'orange'],
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            beginAtZero: true,
-            ticks: {
-              color: 'black'
-            }
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              color: 'black',
-            }
+updateChartData(data: number[]) {
+  this.lineChart.data.datasets[0].data = data;
+  this.lineChart.update();
+}
+
+ngOnInit(): void {
+  this.userBmiCategory = this.fetchBmiAllCategories();
+  console.log(this.userBmiCategory);
+  
+  this.displayChart();
+
+  this.userBmiCategory.subscribe((data: Bmi_result[]) => {
+    const counts = [
+      data.filter((item) => item.category === 'Subponderal').length,
+      data.filter((item) => item.category === 'Normal').length,
+      data.filter((item) => item.category === 'Supraponderal').length,
+      data.filter((item) => item.category === 'Obez').length,
+    ];
+    this.updateChartData(counts);
+  });
+}
+
+displayChart() {
+  this.lineChart = new Chart('barChart', {
+    type: 'bar',
+    data: {
+      labels: ["Subponderal", "Normal", "Supraponderal", "Obez"], 
+      datasets: [{
+        label: 'Indecele de masa corporala la nivelul tuturor utilizatorilor',
+        data: [] as Array<number>,
+        borderWidth: 3,
+        borderColor: 'white',
+        backgroundColor: ['blue', 'yellow', 'green', 'red'],
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            color: 'black'
           }
         },
-        plugins: {
-          legend: {
-            labels: {
-              color: 'white' 
-            }
-          },
-          title: {
-            display: true,
-            text: 'BMI',
-            color: 'white' 
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: 'black',
           }
         }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: 'black' 
+          }
+        },
+        title: {
+          display: true,
+          text: 'BMI',
+          color: 'black' 
+        }
       }
-    });
-  
-    this.userBmiResult.subscribe((data) => {
-      const bmiData = data.map((d) => d.result);
-      lineChart.data.datasets[0].data = bmiData;
-      lineChart.update();
-    });
-  
-    this.userBmiDateResult.subscribe((data) => {
-      const bmiDate = data.map((d) => new Date(d.date).toLocaleDateString());
-      lineChart.data.labels = bmiDate;
-      lineChart.update();
-    });
-  }
+    }
+  });
 
-  //user statistics
-  fetchAllBmi(): Observable<Bmi_result[]> {
-    return this.calculatorService.fetchAllBmi();
-  }
-  fetchBmiAllDate(): Observable<Bmi_result[]> {
-    return this.calculatorService.fetchBmiAllDate();
-  }
+  // Query the database for the count of results in each category
+  const countObservables = [];
+  countObservables.push(this.calculatorService.getCountForBmiCategory('Subponderal'));
+  countObservables.push(this.calculatorService.getCountForBmiCategory('Normal'));
+  countObservables.push(this.calculatorService.getCountForBmiCategory('Supraponderal'));
+  countObservables.push(this.calculatorService.getCountForBmiCategory('Obez'));
+
+  forkJoin(countObservables).subscribe(counts => {
+    // Update the chart data with the counts
+    this.updateChartData(counts);
+  });
+}
+
+//user statistics
+fetchBmiAllCategories(): Observable<Bmi_result[]> {
+  return this.calculatorService.fetchBmiAllCategories();
+}
+
 
 }

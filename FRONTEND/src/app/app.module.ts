@@ -25,6 +25,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 
 
+
 const routes: Routes = [];
 
 @NgModule({
