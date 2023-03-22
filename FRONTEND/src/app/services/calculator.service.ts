@@ -7,7 +7,7 @@ import { User } from '../models/User';
 import { Observable } from 'rxjs';
 import { first, catchError } from 'rxjs/operators';
 import { Bmi_result } from '../models/Bmi_result';
-
+import { ArterialTension } from '../models/ArterialTension';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +21,8 @@ export class CalculatorService {
   };
 
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
+
+  //RMB BMI
 
   fetchRmb(): Observable<Rmb_result[]>{
     return this.http.get<Rmb_result[]>(`${this.url}/rmb`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Rmb_result[]>("fetchRmb", [])));
@@ -85,5 +87,25 @@ export class CalculatorService {
   getCountForActivity(activitylevel: string): Observable<number> {
     return this.http.get<number>(`${this.url}/rmb/activityCount/${activitylevel}`);
   }
-  
+
+  //ARTERIAL TENSION
+  fetchAT(): Observable<ArterialTension[]>{
+    return this.http.get<ArterialTension[]>(`${this.url}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+  }
+
+  fetchAllAT(): Observable<ArterialTension[]>{
+    return this.http.get<ArterialTension[]>(`${this.url}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+  }
+
+  fetchATAllDate(): Observable<ArterialTension[]>{
+    return this.http.get<ArterialTension[]>(`${this.url}/at/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmbDate", [])));
+  }
+
+  collectDataAT(calculatorFormData: Partial<ArterialTension>, userId: Pick<User, "id">): Observable<ArterialTension> {
+    return this.http
+    .post<ArterialTension>(`${this.url}/at`, {sbp: calculatorFormData.sbp, dbp: calculatorFormData.dbp, user: userId}, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandlerService.handleError<ArterialTension>("collectDataAT"))
+    );
+  }
 }

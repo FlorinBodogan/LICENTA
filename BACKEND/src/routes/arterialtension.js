@@ -7,13 +7,15 @@ const auth = require('../middleware/auth');
 router.get('/at', auth, arterialtensionController.fetchATResultById);
 router.get('/at/all', auth, arterialtensionController.fetchAllATResultById);
 router.get('/at/date', auth, arterialtensionController.fetchAllATDateById);
+router.get('/at/result', auth, arterialtensionController.fetchATResultForAll);
+router.get('/at/resultCount', auth, arterialtensionController.getATCounts);
 
 router.post(
     '/at',
     [
         auth,
-        body('spb').trim().isLength({ min: 1 }).not().isEmpty(),
-        body('dpb').trim().isLength({ min: 1 }).not().isEmpty(),
+        body('sbp').trim().isLength({ min: 1 }).not().isEmpty(),
+        body('dbp').trim().isLength({ min: 1 }).not().isEmpty(),
         body('user').trim().not().isEmpty()
     ], arterialtensionController.postInfoForAT
 );

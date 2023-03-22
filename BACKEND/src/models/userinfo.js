@@ -21,9 +21,18 @@ module.exports = class UserInfo {
 
     //NIVEL DE ACTIVITATE
     static fetchActivityLevelForAll() {
-        return db.execute(`SELECT activitylevel FROM userinfo ORDER BY id`);
+        return db.execute(`
+          SELECT ui.user, ui.activitylevel
+          FROM userinfo ui
+          INNER JOIN (
+            SELECT user, MAX(id) AS max_id
+            FROM userinfo
+            GROUP BY user
+          ) max_ids
+          ON ui.user = max_ids.user AND ui.id = max_ids.max_id
+        `);
     }
-
+      
     static async getCountForActivity(activity) {
         try {
           const [rows, fields] = await db.execute(
@@ -105,7 +114,15 @@ module.exports = class UserInfo {
     }
 
     static fetchBmiAllCategories() {
-        return db.execute(`SELECT category FROM bmi_results ORDER BY id`);
+        return db.execute(`SELECT br.user, br.category
+        FROM bmi_results br
+        INNER JOIN (
+          SELECT user, MAX(id) AS max_id
+          FROM bmi_results
+          GROUP BY user
+        ) max_ids
+        ON br.user = max_ids.user AND br.id = max_ids.max_id
+        `);
     }
 
     static fetchBmiDateById(userId) {

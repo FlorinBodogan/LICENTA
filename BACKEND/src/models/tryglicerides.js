@@ -59,4 +59,29 @@ module.exports = class Tryglicerides {
       return db.execute(`SELECT created FROM triglycerides WHERE user = ? ORDER BY id`, [userId]);
     }
 
+    static fetchTRResultForAll() {
+      return db.execute(`
+      SELECT ui.user, ui.result
+      FROM triglycerides ui
+      INNER JOIN (
+        SELECT user, MAX(id) AS max_id
+        FROM triglycerides
+        GROUP BY user
+      ) max_ids
+      ON ui.user = max_ids.user AND ui.id = max_ids.max_id`
+      );
+    }
+  
+    static async getCountForTR(result) {
+      try {
+        const [rows, fields] = await db.execute(
+          'SELECT COUNT(*) AS count FROM triglycerides WHERE result = ?',
+          [result]
+        );
+        return rows[0].count;
+      } catch (e) {
+        throw new Error(`A avut loc o eroare`);
+      }
+    }
+
 }

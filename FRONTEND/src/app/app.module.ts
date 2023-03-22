@@ -25,6 +25,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 import { CalculatorsComponent } from './components/calculators/calculators.component';
+import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
+import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 
 
 
@@ -45,6 +47,8 @@ const routes: Routes = [];
     DashboardComponent,
     CalculatorBmiComponent,
     CalculatorsComponent,
+    CalculatorATComponent,
+    CalculatorTRComponent,
   ],
   imports: [
     BrowserModule,

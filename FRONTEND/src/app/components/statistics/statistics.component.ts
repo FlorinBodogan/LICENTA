@@ -75,6 +75,7 @@ displayChartBmi() {
       }]
     },
     options: {
+      aspectRatio: 1.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -129,6 +130,7 @@ displayChartActivity() {
       }]
     },
     options: {
+      aspectRatio: 1.5,
       scales: {
         x: {
           beginAtZero: true,
