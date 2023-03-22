@@ -10,6 +10,7 @@
     "start": "concurrently \"npm run api\" \"npm run front\" "
   },
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "chart.js": "^4.2.1"
   }
 }

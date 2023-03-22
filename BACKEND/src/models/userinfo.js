@@ -174,4 +174,12 @@ module.exports = class UserInfo {
     static delete(id) {
         return db.execute('DELETE FROM userinfo WHERE id = ?', [id]);
     }
+
+    //TENSIUNE ARTERIALA
+
+
+    //COLESTEROL
+
+
+    //TRIGLICERIDE
 };

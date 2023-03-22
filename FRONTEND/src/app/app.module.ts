@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,6 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
+import { CalculatorsComponent } from './components/calculators/calculators.component';
 
 
 
@@ -42,6 +44,7 @@ const routes: Routes = [];
     UserProfileComponent,
     DashboardComponent,
     CalculatorBmiComponent,
+    CalculatorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ const routes: Routes = [];
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    [NgbModule]
   ],
   exports: [
     RouterModule

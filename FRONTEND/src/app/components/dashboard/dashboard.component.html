@@ -1,5 +1,8 @@
 <body>
     <div class="home" *ngFor="let user of userInfo$ | async">
+        <video autoplay muted loop>
+            <source src="assets/img/dashboardvideo.mp4" type="video/mp4">
+        </video>
         <section class="hero-section">
             <div class="home-container">
                 <div class="hero-text-box">
@@ -7,7 +10,7 @@
                     <p class="hero-text">
                         Vezi în ce parametrii te afli!
                     </p>
-                    <a  routerLink="/calculator" class="btn">Incepe acum</a>
+                    <a  routerLink="/calculator" class="btn">Calculeaza</a>
                 </div>
             </div>
         </section>

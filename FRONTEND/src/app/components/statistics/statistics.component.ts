@@ -62,16 +62,16 @@ ngOnInit(): void {
 }
 
 displayChartBmi() {
-  this.bmiChart = new Chart('barChart', {
-    type: 'bar',
+  this.bmiChart = new Chart('bmiChart', {
+    type: 'pie',
     data: {
       labels: ["Subponderal", "Normal", "Supraponderal", "Obez"], 
       datasets: [{
-        label: 'Indecele de masa corporala la nivelul tuturor utilizatorilor',
+        label: 'Categorii',
         data: [] as Array<number>,
         borderWidth: 3,
         borderColor: 'white',
-        backgroundColor: ['blue', 'yellow', 'green', 'red'],
+        backgroundColor: ['blue', 'green', 'yellow', 'red'], 
       }]
     },
     options: {
@@ -116,7 +116,7 @@ displayChartBmi() {
 }
 
 displayChartActivity() {
-  this.activityChart = new Chart('pieChart', {
+  this.activityChart = new Chart('activityChart', {
     type: 'pie',
     data: {
       labels: ["Sedentar", "Scazut", "Moderat", "Ridicat", "Foarte Ridicat"], 
