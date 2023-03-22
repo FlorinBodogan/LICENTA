@@ -182,4 +182,5 @@ module.exports = class UserInfo {
 
 
     //TRIGLICERIDE
+    
 };

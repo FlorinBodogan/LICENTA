@@ -8,6 +8,8 @@ const userinfoRoutes = require('./src/routes/userinfo');
 const userRoutes = require('./src/routes/user');
 const imageRoutes = require('./src/routes/images');
 const errorController = require('./src/controllers/error');
+const arterialRoutes = require('./src/routes/arterialtension');
+const trygliceridesRoutes = require('./src/routes/tryglicerides');
 
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -24,6 +26,9 @@ app.use('/auth', authRoutes);
 app.use('/userinfo', userinfoRoutes);
 app.use('/user', userRoutes);
 app.use('/images', imageRoutes);
+app.use('/arterialtension', arterialRoutes);
+app.use('/tryglicerides', trygliceridesRoutes);
+
 
 app.use('/image', express.static('uploads/'));
 
