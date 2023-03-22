@@ -8,12 +8,14 @@ import { Observable } from 'rxjs';
 import { first, catchError } from 'rxjs/operators';
 import { Bmi_result } from '../models/Bmi_result';
 import { ArterialTension } from '../models/ArterialTension';
+import { Tryglicerides } from '../models/Tryglicerides';
 @Injectable({
   providedIn: 'root'
 })
 export class CalculatorService {
   private url = "http://localhost:3500/userinfo";
   private url2 = "http://localhost:3500/arterialtension";
+  private url3 = "http://localhost:3500/tryglicerides";
 
   
 
@@ -23,7 +25,7 @@ export class CalculatorService {
 
   constructor(private http: HttpClient, private errorHandlerService: ErrorHandlerService) { }
 
-  //RMB BMI
+  //--------------------------------------------------------RMB BMI-------------------------------------------------------------
 
   fetchRmb(): Observable<Rmb_result[]>{
     return this.http.get<Rmb_result[]>(`${this.url}/rmb`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Rmb_result[]>("fetchRmb", [])));
@@ -89,17 +91,18 @@ export class CalculatorService {
     return this.http.get<number>(`${this.url}/rmb/activityCount/${activitylevel}`);
   }
 
-  //ARTERIAL TENSION
+
+  //------------------------------------------------------------ARTERIAL TENSION-------------------------------------------
   fetchAT(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url2}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchAT", [])));
   }
 
   fetchAllAT(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url2}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchAT", [])));
   }
 
   fetchATAllDate(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url2}/at/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmbDate", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchATDate", [])));
   }
 
   collectDataAT(calculatorFormData: Partial<ArterialTension>, userId: Pick<User, "id">): Observable<ArterialTension> {
@@ -111,10 +114,41 @@ export class CalculatorService {
   }
 
   fetchATAllCategories(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url2}/bmi/category`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchCategories", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/result`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchCategories", [])));
   }
 
   getCountForATCategory(category: string): Observable<number> {
     return this.http.get<number>(`${this.url2}/at/resultCount/${category}`);
   }
+
+
+  //---------------------------------------------TRYGLICERIDES-------------------------------------------------------------
+  fetchTR(): Observable<Tryglicerides[]>{
+    return this.http.get<Tryglicerides[]>(`${this.url3}/tr`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchTR", [])));
+  }
+
+  fetchAllTR(): Observable<Tryglicerides[]>{
+    return this.http.get<Tryglicerides[]>(`${this.url3}/tr/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchTR", [])));
+  }
+
+  fetchTRAllDate(): Observable<Tryglicerides[]>{
+    return this.http.get<Tryglicerides[]>(`${this.url3}/tr/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchTRDate", [])));
+  }
+
+  collectDataTR(calculatorFormData: Partial<Tryglicerides>, userId: Pick<User, "id">): Observable<Tryglicerides> {
+    return this.http
+    .post<Tryglicerides>(`${this.url3}/tr`, {hdl: calculatorFormData.hdl, ldl: calculatorFormData.ldl, user: userId}, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandlerService.handleError<Tryglicerides>("collectDataTR"))
+    );
+  }
+
+  fetchTRAllCategories(): Observable<Tryglicerides[]>{
+    return this.http.get<Tryglicerides[]>(`${this.url3}/tr/result`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchCategories", [])));
+  }
+
+  getCountForTRCategory(category: string): Observable<number> {
+    return this.http.get<number>(`${this.url3}/tr/resultCount/${category}`);
+  }
+
 }

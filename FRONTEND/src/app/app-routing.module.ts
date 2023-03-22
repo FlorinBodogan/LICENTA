@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 import { CalculatorsComponent } from './components/calculators/calculators.component';
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
+import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: "about", component: AboutmeComponent},
   {path: "calculator", component: CalculatorComponent, canActivate: [AuthGuardService]},
   {path: "calculatorAT", component: CalculatorATComponent, canActivate: [AuthGuardService]},
+  {path: "calculatorTR", component: CalculatorTRComponent, canActivate: [AuthGuardService]},
   {path: "statistics", component: StatisticsComponent},
   {path: "register", component: RegisterComponent},
   {path: "footer", component: FooterComponent},

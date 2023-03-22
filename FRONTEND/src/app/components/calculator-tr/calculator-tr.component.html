@@ -1,1 +1,32 @@
-<p>calculator-tr works!</p>
+<body>
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator">
+                <div class="calculator-text-box">
+                    <h2 class="heading-secondary form">Calculator Trigliceride</h2>
+                </div>
+                <form (create)="collectDataAT()" [formGroup]="calculatorForm" (ngSubmit)="calculateAT(calculatorForm.value)" #formDirective="ngForm" class="calculator-form grid-form" action="#">
+                    <div>
+                        <label for="colesterol">Colesterol</label>
+                        <input id="colesterol" type="number" formControlName="colesterol" placeholder="55 mm/HG" required>
+                    </div>
+                    <div>
+                        <label for="hdl">HDL</label>
+                        <input id="hdl" type="number" formControlName="hdl" placeholder="55 mm/HG" required>
+                    </div>
+                    <div>
+                        <label for="ldl">LDL</label>
+                        <input id="ldl" type="number" formControlName="ldl" placeholder="175 mm/HG" required>
+                    </div>              
+                    <button class="btn--form">Calculeaza</button>
+                </form>
+                <div class="calculator-result" *ngFor="let calculus of calculus$ | async">
+                    <div class="result">
+                      <p>Nivel: {{ calculus.result }}</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </body>
+
