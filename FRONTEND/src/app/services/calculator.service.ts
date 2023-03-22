@@ -47,7 +47,11 @@ export class CalculatorService {
   }
 
   fetchBmiAllCategories(): Observable<Bmi_result[]>{
-    return this.http.get<Bmi_result[]>(`${this.url}/bmi/category`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Bmi_result[]>("fetchBmiDate", [])));
+    return this.http.get<Bmi_result[]>(`${this.url}/bmi/category`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Bmi_result[]>("fetchCategories", [])));
+  }
+
+  fetchAllActivity(): Observable<UserInfo[]>{
+    return this.http.get<UserInfo[]>(`${this.url}/rmb/activity`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<UserInfo[]>("fetchActivity", [])));
   }
 
   collectDataRmb(calculatorFormData: Partial<UserInfo>, userId: Pick<User, "id">): Observable<UserInfo> {
@@ -76,6 +80,10 @@ export class CalculatorService {
 
   getCountForBmiCategory(category: string): Observable<number> {
     return this.http.get<number>(`${this.url}/bmi/categoryCount/${category}`);
+  }
+
+  getCountForActivity(activitylevel: string): Observable<number> {
+    return this.http.get<number>(`${this.url}/rmb/activityCount/${activitylevel}`);
   }
   
 }

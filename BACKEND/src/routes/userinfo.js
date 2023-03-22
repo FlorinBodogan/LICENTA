@@ -5,6 +5,8 @@ const userinfoController = require('../controllers/userinfo');
 const auth = require('../middleware/auth');
 
 router.get('/rmb', auth, userinfoController.fetchRmbResultById);
+router.get('/rmb/activity', auth, userinfoController.fetchActivityLevelForAll);
+router.get('/rmb/activityCount', auth, userinfoController.getActivityCounts);
 router.get('/rmb/all', auth, userinfoController.fetchRmbAllResultById);
 router.get('/rmb/date', auth, userinfoController.fetchRmbAllDateById);
 

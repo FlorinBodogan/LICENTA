@@ -19,6 +19,23 @@ module.exports = class UserInfo {
         return db.execute(`SELECT * FROM userinfo WHERE user=${token.userId}`);
     }
 
+    //NIVEL DE ACTIVITATE
+    static fetchActivityLevelForAll() {
+        return db.execute(`SELECT activitylevel FROM userinfo ORDER BY id`);
+    }
+
+    static async getCountForActivity(activity) {
+        try {
+          const [rows, fields] = await db.execute(
+            'SELECT COUNT(*) AS count FROM userinfo WHERE activitylevel = ?',
+            [activity]
+          );
+          return rows[0].count;
+        } catch (e) {
+          throw new Error(`A avut loc o eroare`);
+        }
+    }
+
     //RATA METABOLICA BAZALA
     static fetchRmbResultById(userId) {
         return db.execute(`SELECT * FROM rmb_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);

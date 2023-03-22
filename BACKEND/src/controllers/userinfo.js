@@ -18,6 +18,38 @@ exports.fetchUserInfoById = async(req, res, next) => {
     }
 }
 
+exports.fetchActivityLevelForAll = async(req, res, next) => {
+    try {
+        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
+        const [activity] = await UserInfo.fetchActivityLevelForAll(decodedToken.userId);
+        res.status(200).json(activity);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+}
+
+exports.getActivityCounts = async (req, res, next) => {
+    try {
+      const countPromises = [];
+      countPromises.push(UserInfo.getCountForActivity('Sedentar'));
+      countPromises.push(UserInfo.getCountForActivity('Scazut'));
+      countPromises.push(UserInfo.getCountForActivity('Moderat'));
+      countPromises.push(UserInfo.getCountForActivity('Ridicat'));
+      countPromises.push(UserInfo.getCountForActivity('Foarteridicat'));
+  
+      const counts = await Promise.all(countPromises);
+  
+      res.json({ counts });
+    } catch (error) {
+      next(error);
+    }
+};
+
 exports.fetchRmbResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
