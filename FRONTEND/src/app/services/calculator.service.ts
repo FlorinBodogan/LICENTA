@@ -13,6 +13,7 @@ import { ArterialTension } from '../models/ArterialTension';
 })
 export class CalculatorService {
   private url = "http://localhost:3500/userinfo";
+  private url2 = "http://localhost:3500/arterialtension";
 
   
 
@@ -90,22 +91,30 @@ export class CalculatorService {
 
   //ARTERIAL TENSION
   fetchAT(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
   }
 
   fetchAllAT(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmb", [])));
   }
 
   fetchATAllDate(): Observable<ArterialTension[]>{
-    return this.http.get<ArterialTension[]>(`${this.url}/at/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmbDate", [])));
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/date`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchRmbDate", [])));
   }
 
   collectDataAT(calculatorFormData: Partial<ArterialTension>, userId: Pick<User, "id">): Observable<ArterialTension> {
     return this.http
-    .post<ArterialTension>(`${this.url}/at`, {sbp: calculatorFormData.sbp, dbp: calculatorFormData.dbp, user: userId}, this.httpOptions)
+    .post<ArterialTension>(`${this.url2}/at`, {sbp: calculatorFormData.sbp, dbp: calculatorFormData.dbp, user: userId}, this.httpOptions)
     .pipe(
       catchError(this.errorHandlerService.handleError<ArterialTension>("collectDataAT"))
     );
+  }
+
+  fetchATAllCategories(): Observable<ArterialTension[]>{
+    return this.http.get<ArterialTension[]>(`${this.url2}/bmi/category`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchCategories", [])));
+  }
+
+  getCountForATCategory(category: string): Observable<number> {
+    return this.http.get<number>(`${this.url2}/at/resultCount/${category}`);
   }
 }

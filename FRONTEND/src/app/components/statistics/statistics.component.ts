@@ -178,7 +178,6 @@ displayChartActivity() {
  }
 
  fetchAllActivity(): Observable<UserInfo[]> {
-  console.log('fetchBmiAllCategories called');
    return this.calculatorService.fetchAllActivity();
  }
 
