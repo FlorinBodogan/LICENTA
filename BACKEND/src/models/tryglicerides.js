@@ -83,4 +83,8 @@ module.exports = class Tryglicerides {
       }
     }
 
+    static fetchTRById(userId) {
+      return db.execute(`SELECT result FROM triglycerides WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
+    }
+
 }

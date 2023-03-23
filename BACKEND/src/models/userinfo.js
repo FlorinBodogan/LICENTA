@@ -19,6 +19,12 @@ module.exports = class UserInfo {
         return db.execute(`SELECT * FROM userinfo WHERE user=${token.userId}`);
     }
 
+    //istoric personal
+    static fetchWeightById(userId) {
+        return db.execute(`SELECT weight FROM userinfo WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
+    }
+
+
     //NIVEL DE ACTIVITATE
     static fetchActivityLevelForAll() {
         return db.execute(`

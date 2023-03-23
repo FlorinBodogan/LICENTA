@@ -59,6 +59,10 @@ export class CalculatorService {
     return this.http.get<UserInfo[]>(`${this.url}/rmb/activity`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<UserInfo[]>("fetchActivity", [])));
   }
 
+  fetchWeightByID(): Observable<UserInfo[]>{
+    return this.http.get<UserInfo[]>(`${this.url}/rmb/weight`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<UserInfo[]>("fetchActivity", [])));
+  }
+
   collectDataRmb(calculatorFormData: Partial<UserInfo>, userId: Pick<User, "id">): Observable<UserInfo> {
     return this.http
     .post<UserInfo>(`${this.url}/rmb`, {gender: calculatorFormData.gender, age: calculatorFormData.age, height: calculatorFormData.height, weight: calculatorFormData.weight, activitylevel: calculatorFormData.activitylevel, user: userId}, this.httpOptions)
@@ -97,6 +101,10 @@ export class CalculatorService {
     return this.http.get<ArterialTension[]>(`${this.url2}/at`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchAT", [])));
   }
 
+  fetchATByID(): Observable<ArterialTension[]>{
+    return this.http.get<ArterialTension[]>(`${this.url2}/at/resultbyID`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchAT", [])));
+  }
+
   fetchAllAT(): Observable<ArterialTension[]>{
     return this.http.get<ArterialTension[]>(`${this.url2}/at/all`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<ArterialTension[]>("fetchAT", [])));
   }
@@ -125,6 +133,10 @@ export class CalculatorService {
   //---------------------------------------------TRYGLICERIDES-------------------------------------------------------------
   fetchTR(): Observable<Tryglicerides[]>{
     return this.http.get<Tryglicerides[]>(`${this.url3}/tr`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchTR", [])));
+  }
+
+  fetchTRByID(): Observable<Tryglicerides[]>{
+    return this.http.get<Tryglicerides[]>(`${this.url3}/tr/resultbyID`, {responseType: "json"}).pipe(catchError(this.errorHandlerService.handleError<Tryglicerides[]>("fetchTR", [])));
   }
 
   fetchAllTR(): Observable<Tryglicerides[]>{

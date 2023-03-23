@@ -98,6 +98,21 @@ exports.fetchATResultForAll = async(req, res, next) => {
     }
 };
 
+exports.fetchATById = async(req, res, next) => {
+    try {
+        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
+        const [result] = await ArterialTension.fetchATById(decodedToken.userId);
+        res.status(200).json(result);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+};
+
 exports.getATCounts = async (req, res, next) => {
     try {
       const countPromises = [];

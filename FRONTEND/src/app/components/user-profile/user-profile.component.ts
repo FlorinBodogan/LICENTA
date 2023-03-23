@@ -9,6 +9,9 @@ import { UserService } from 'src/app/services/user.service';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { Rmb_result } from 'src/app/models/Rmb_result';
+import { UserInfo } from 'src/app/models/UserInfo';
+import { ArterialTension } from 'src/app/models/ArterialTension';
+import { Tryglicerides } from 'src/app/models/Tryglicerides';
 Chart.register(...registerables); 
 
 @Component({
@@ -23,6 +26,9 @@ export class UserProfileComponent implements OnInit {
 
   userId: Pick<User, "id">;
   userInfo$: Observable<User[]>;
+  userWeight$: Observable<UserInfo[]>;
+  userAT$: Observable<ArterialTension[]>;
+  userTR$: Observable<Tryglicerides[]>;
   
   userBmiResult: Observable<Bmi_result[]>;
   userBmiDateResult: Observable<Bmi_result[]>;
@@ -35,6 +41,9 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfo$ = this.fetchUser();
+    this.userWeight$ = this.fetchWeightByID();
+    this.userAT$ = this.fetchATByID();
+    this.userTR$ = this.fetchTRByID();
     this.userId = this.userService.userId;
 
     this.userBmiResult = this.fetchAllBmi();
@@ -57,11 +66,11 @@ export class UserProfileComponent implements OnInit {
       data: {
         labels: [] as Array<string>, 
         datasets: [{
-          label: 'Evolutia indicelui de masa corporala',
+          label: 'Indice Masa Corporala',
           data: [] as Array<number>,
           borderWidth: 3,
           borderColor: 'white',
-          backgroundColor: ['yellow'],
+          backgroundColor: ['#2cd929'],
         }]
       },
       options: {
@@ -110,14 +119,14 @@ export class UserProfileComponent implements OnInit {
    //RATA METABOLICA BAZALA
    displayChartRMB() {
     const lineChart = new Chart('chartRMB', {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: [] as Array<string>, 
         datasets: [{
-          label: 'Evolutia ratei metabolice bazale',
+          label: 'Rata Metabolica Bazala',
           data: [] as Array<number>,
-          borderWidth: 3,
-          borderColor: 'white',
+          borderWidth: 4,
+          borderColor: 'blue',
           backgroundColor: ['blue'],
         }]
       },
@@ -126,26 +135,26 @@ export class UserProfileComponent implements OnInit {
           x: {
             beginAtZero: true,
             ticks: {
-              color: 'white'
+              color: 'black'
             }
           },
           y: {
             beginAtZero: true,
             ticks: {
-              color: 'white',
+              color: 'black',
             }
           }
         },
         plugins: {
           legend: {
             labels: {
-              color: 'white' 
+              color: 'black' 
             }
           },
           title: {
             display: true,
             text: 'RMB',
-            color: 'white' 
+            color: 'black' 
           }
         }
       }
@@ -198,6 +207,19 @@ export class UserProfileComponent implements OnInit {
   }
   fetchRmbAllDate(): Observable<Rmb_result[]> {
     return this.calculatorService.fetchRmbAllDate();
+  }
+
+  //cards info
+  fetchWeightByID(): Observable<UserInfo[]> {
+    return this.calculatorService.fetchWeightByID();
+  }
+
+  fetchATByID(): Observable<ArterialTension[]> {
+    return this.calculatorService.fetchATByID();
+  }
+
+  fetchTRByID(): Observable<Tryglicerides[]> {
+    return this.calculatorService.fetchTRByID();
   }
 
 }

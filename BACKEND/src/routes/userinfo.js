@@ -9,6 +9,7 @@ router.get('/rmb/activity', auth, userinfoController.fetchActivityLevelForAll);
 router.get('/rmb/activityCount', auth, userinfoController.getActivityCounts);
 router.get('/rmb/all', auth, userinfoController.fetchRmbAllResultById);
 router.get('/rmb/date', auth, userinfoController.fetchRmbAllDateById);
+router.get('/rmb/weight', auth, userinfoController.fetchWeightById);
 
 router.get('/bmi', auth, userinfoController.fetchBmiResultById);
 router.get('/bmi/all', auth, userinfoController.fetchBmiAllResultById);

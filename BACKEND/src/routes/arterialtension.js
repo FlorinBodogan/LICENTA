@@ -8,6 +8,7 @@ router.get('/at', auth, arterialtensionController.fetchATResultById);
 router.get('/at/all', auth, arterialtensionController.fetchAllATResultById);
 router.get('/at/date', auth, arterialtensionController.fetchAllATDateById);
 router.get('/at/result', auth, arterialtensionController.fetchATResultForAll);
+router.get('/at/resultbyID', auth, arterialtensionController.fetchATById);
 router.get('/at/resultCount', auth, arterialtensionController.getATCounts);
 
 router.post(

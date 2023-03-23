@@ -215,6 +215,21 @@ exports.fetchBmiAllDateById = async(req, res, next) => {
     }
 }
 
+exports.fetchWeightById = async(req, res, next) => {
+    try {
+        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
+        const [bmi] = await UserInfo.fetchWeightById(decodedToken.userId);
+        res.status(200).json(bmi);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+}
+
 exports.postUserInforRmb = async (req, res, next) => {
     console.log(req.body);
     const errors = validationResult(req);

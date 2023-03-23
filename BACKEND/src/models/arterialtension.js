@@ -86,4 +86,8 @@ module.exports = class ArterialTension {
     }
   }
 
+  static fetchATById(userId) {
+    return db.execute(`SELECT result FROM arterialtension WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
+  }
+
 }

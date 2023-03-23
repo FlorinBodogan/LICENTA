@@ -3,7 +3,7 @@
         <div class="userprofile-container">
             <div class="userprofile" *ngFor="let user of userInfo$ | async">
                 <div class="user-name">
-                    {{user.name}}
+                    <!-- {{user.name}} -->
                 </div>
                 <div class="user-photo">                 
                     <!-- <form [formGroup]="uploadForm" (ngSubmit)="uploadPhoto()" enctype='multipart/form-data'>
@@ -12,7 +12,7 @@
                            <button class="btn"><fa-icon [icon]="faUpload"></fa-icon></button> 
                         </div>
                     </form> -->
-                    <img src="assets/img/user.png" class="img-user" alt="user photo" width="270" height="250"> 
+                    <img src="assets/img/hero2.jpg" class="img-user" alt="user photo" width="270" height="250"> 
                 </div>
                 <div class="user-description">
                     Detalii cont:
@@ -21,10 +21,35 @@
                     <br>
                     Email: {{user.email}}
                 </div>
-             </div>
-             <canvas id="chartBMI" class="userprofile-statistics-container"></canvas>
-             <!-- <canvas id="chartRMB" class="userprofile-statistics-container"></canvas> -->
+            </div>
+            <div class="flex-container">
+                <div class="results-container">
+                    <div class="card" *ngFor="let user of userWeight$ | async">
+                        <h2>Kilograme: {{user.weight}}</h2>
+                    </div>
+                    <div class="card" *ngFor="let user of userAT$ | async">
+                        <h2>Tensiune Arteriala: {{user.result}}</h2>
+                    </div>
+                    <div class="card" *ngFor="let user of userTR$ | async">
+                        <h2>Trigliceride: {{user.result}}</h2>
+                    </div> 
+                </div>
+                <canvas id="chartBMI" class="userprofile-statistics-container" style="height: 350px; width: 800px;"></canvas>
+            </div>
         </div>
+        <section class="Statistics-section">
+            <div class="container container--statistics">
+                <span class="subheading subheading--statistics">Istoric Personal</span>
+                <h2 class="heading-secondary        heading-secondary--statistics">Rata Metabolica Bazala   
+                </h2>
+                <p class="statistics-description">
+                    Toate calculele efectuate pana in prezent
+                </p>
+                <div class="grid grid--chart">
+                    <canvas id="chartRMB"></canvas>
+                </div> 
+            </div>
+        </section>
     </body>
   <app-footer></app-footer>
 </main>

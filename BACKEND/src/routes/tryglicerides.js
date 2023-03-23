@@ -8,6 +8,7 @@ router.get('/tr', auth, trygliceridesController.fetchTRResultById);
 router.get('/tr/all', auth, trygliceridesController.fetchAllTRResultById);
 router.get('/tr/date', auth, trygliceridesController.fetchAllTRDateById);
 router.get('/tr/result', auth, trygliceridesController.fetchTRResultForAll);
+router.get('/tr/resultbyID', auth, trygliceridesController.fetchTRById);
 router.get('/tr/resultCount', auth, trygliceridesController.getTRCounts);
 
 router.post(
