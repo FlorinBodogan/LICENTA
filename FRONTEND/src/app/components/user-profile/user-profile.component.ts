@@ -35,6 +35,8 @@ export class UserProfileComponent implements OnInit {
 
   userRmbResult: Observable<Rmb_result[]>;
   userRmbDateResult: Observable<Rmb_result[]>;
+
+
   //userPhoto$: Observable<Images[]>;
 
   constructor(private userService: UserService, private calculatorService: CalculatorService) {}
@@ -54,6 +56,7 @@ export class UserProfileComponent implements OnInit {
     
     this.displayChartBMI();
     this.displayChartRMB();
+
     //this.userPhoto$ = this.fetchUserPhoto();
     //this.uploadForm = this.createFormGroup();
 
@@ -207,6 +210,14 @@ export class UserProfileComponent implements OnInit {
   }
   fetchRmbAllDate(): Observable<Rmb_result[]> {
     return this.calculatorService.fetchRmbAllDate();
+  }
+
+  //KG
+  fetchAllAT(): Observable<ArterialTension[]> {
+    return this.calculatorService.fetchAllAT();
+  }
+  fetchATAllDate(): Observable<ArterialTension[]> {
+    return this.calculatorService.fetchATAllDate();
   }
 
   //cards info
