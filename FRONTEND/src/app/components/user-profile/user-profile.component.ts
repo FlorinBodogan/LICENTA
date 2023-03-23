@@ -55,7 +55,7 @@ export class UserProfileComponent implements OnInit {
     this.userRmbDateResult = this.fetchRmbAllDate();
     
     this.displayChartBMI();
-    this.displayChartRMB();
+    //this.displayChartRMB();
 
     //this.userPhoto$ = this.fetchUserPhoto();
     //this.uploadForm = this.createFormGroup();

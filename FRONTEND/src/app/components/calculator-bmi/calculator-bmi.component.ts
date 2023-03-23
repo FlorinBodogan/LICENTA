@@ -13,6 +13,7 @@ import { Bmi_result } from 'src/app/models/Bmi_result';
   styleUrls: ['./calculator-bmi.component.css']
 })
 export class CalculatorBmiComponent implements OnInit {
+
   userId: Pick<User, "id"> | undefined;
   calculus$: Observable<Bmi_result[]>;
 

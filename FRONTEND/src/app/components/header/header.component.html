@@ -4,8 +4,18 @@
             <a routerLink="/home" *ngIf="!isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
             <a routerLink="/dashboard" *ngIf="isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
                 <ul class="main-nav-list">
-                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/about">Despre <fa-icon [icon]="faCircleInfo"></fa-icon></a></li>                                   
-                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculators">Calculator <fa-icon [icon]="faCalculator"></fa-icon></a></li>
+                    <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/about">Despre <fa-icon [icon]="faCircleInfo"></fa-icon></a></li>
+                    <div class="dropdown" *ngIf="isAuthenticated">
+                        <button class="dropbtn">Calculator <fa-icon [icon]="faCalculator"></fa-icon>
+                          
+                        </button>
+                        <div class="dropdown-content">
+                            <a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculator">Calculator RMB <fa-icon [icon]="faCalculator"></fa-icon></a>
+                            <a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculatorbmi">Calculator BMI <fa-icon [icon]="faCalculator"></fa-icon></a>
+                            <a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculatorAT">Calculator Tensiune <fa-icon [icon]="faCalculator"></fa-icon></a>
+                            <a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/calculatorTR">Calculator Trigliceride <fa-icon [icon]="faCalculator"></fa-icon></a>
+                        </div>
+                      </div>                                   
                     <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/userprofile">Contul Meu <fa-icon [icon]="faUser"></fa-icon></a></li>
                     <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/statistics">Statistici <fa-icon [icon]="faChartSimple"></fa-icon></a></li>
                     <li><a class="main-nav-link" *ngIf="!isAuthenticated" routerLink="/login">Logare <fa-icon [icon]="faRightToBracket"></fa-icon></a></li>                  
