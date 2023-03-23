@@ -137,7 +137,7 @@ export class CalculatorService {
 
   collectDataTR(calculatorFormData: Partial<Tryglicerides>, userId: Pick<User, "id">): Observable<Tryglicerides> {
     return this.http
-    .post<Tryglicerides>(`${this.url3}/tr`, {hdl: calculatorFormData.hdl, ldl: calculatorFormData.ldl, user: userId}, this.httpOptions)
+    .post<Tryglicerides>(`${this.url3}/tr`, {colesterol: calculatorFormData.colesterol, hdl: calculatorFormData.hdl, ldl: calculatorFormData.ldl, user: userId}, this.httpOptions)
     .pipe(
       catchError(this.errorHandlerService.handleError<Tryglicerides>("collectDataTR"))
     );

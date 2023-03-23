@@ -8,15 +8,15 @@
                 <form (create)="collectDataAT()" [formGroup]="calculatorForm" (ngSubmit)="calculateAT(calculatorForm.value)" #formDirective="ngForm" class="calculator-form grid-form" action="#">
                     <div>
                         <label for="colesterol">Colesterol</label>
-                        <input id="colesterol" type="number" formControlName="colesterol" placeholder="55 mm/HG" required>
+                        <input id="colesterol" type="number" formControlName="colesterol" placeholder="55 mg/dL" required>
                     </div>
                     <div>
                         <label for="hdl">HDL</label>
-                        <input id="hdl" type="number" formControlName="hdl" placeholder="55 mm/HG" required>
+                        <input id="hdl" type="number" formControlName="hdl" placeholder="55 mg/dL" required>
                     </div>
                     <div>
                         <label for="ldl">LDL</label>
-                        <input id="ldl" type="number" formControlName="ldl" placeholder="175 mm/HG" required>
+                        <input id="ldl" type="number" formControlName="ldl" placeholder="175 mg/dL" required>
                     </div>              
                     <button class="btn--form">Calculeaza</button>
                 </form>

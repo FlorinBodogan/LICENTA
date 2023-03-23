@@ -20,16 +20,15 @@ module.exports = class Tryglicerides {
         const tryglicerides = 5 * (colesterol - trygliceridesHDL - trygliceridesLDL);
         let category = "";
 
-        if(tryglicerides <= 150){
-            category = "Normal";
-        } else if(151 <= tryglicerides <= 199){
-            category = "Limita Normalului";
-        } else if (200 <= tryglicerides){
-            category = "Ridicat";
-        } else if(500 <= tryglicerides){
-            category = "Foarte ridicat"
+        if (tryglicerides <= 150) {
+          category = "Normal";
+        } else if (151 <= tryglicerides && tryglicerides <= 199) {
+          category = "Limita Normalului";
+        } else if (200 <= tryglicerides && tryglicerides <= 500) {
+          category = "Ridicat";
+        } else if (500 <= tryglicerides) {
+          category = "Foarte Ridicat";
         }
-
         return category;
     }
 

@@ -3,7 +3,7 @@ export interface Tryglicerides {
     colesterol: number,
     hdl: number,
     ldl: number,
-    result: number,
+    result: string,
     user: string,
     date: Date
 }
