@@ -31,6 +31,9 @@ module.exports = class ArterialTension {
             category = "Gradul III de hipertensiune";
         } else if (arterialTensionSBP >= 140 && arterialTensionDBP < 90) {
             category = "Hipertensiune izolata sistolica";
+        } else  {
+
+          category = "Nedeterminat";
         }
         return category;    
   }

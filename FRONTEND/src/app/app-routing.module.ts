@@ -16,10 +16,11 @@ import { CalculatorATComponent } from './components/calculator-at/calculator-at.
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
+import { NotAuthGuardService } from './services/not-auth-guard.service';
 
 const routes: Routes = [
   {path: "", redirectTo:"/home", pathMatch:"full"},
-  {path: "home", component: HomeComponent},
+  {path: "home", component: HomeComponent, canActivate: [NotAuthGuardService]},
   {path: "about", component: AboutmeComponent},
   {path: "calculator", component: CalculatorComponent, canActivate: [AuthGuardService]},
   {path: "calculatorAT", component: CalculatorATComponent, canActivate: [AuthGuardService]},
