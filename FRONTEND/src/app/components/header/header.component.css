@@ -16,6 +16,7 @@
     list-style: none;
     display: flex;
     gap: 4.8rem;
+    z-index: 2;
 }
 
 .nav-home-link:link{
@@ -24,6 +25,7 @@
     font-weight: 500;
     font-size: 1.8rem;
     padding: 1.2rem;
+    z-index: 2;
 }
 
 .nav-home-link:visited, .main-nav-link:link, .main-nav-link:visited{
