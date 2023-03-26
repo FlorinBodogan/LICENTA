@@ -1,17 +1,24 @@
 <body>
 <div class="home">
     <video autoplay muted loop>
-        <source src="assets/img/herovideo.mp4" type="video/mp4">
+        <source src="assets/img/dashboardvideo.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
     <section class="hero-section">
         <div class="home-container">
             <div class="hero-text-box">
-                <h1 class="heading-primary heading-primary--hero">{{home.h1text}}</h1>
-                <p class="hero-text">
-                    {{home.ptext}}
+                <h1 class="heading-primary heading-primary--hero" *ngIf="!isAuthenticated">Un corp sănătos are o greutate normală</h1>
+                <div *ngFor="let user of userInfo$ | async">
+                    <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated" >Bun venit înapoi, {{user.name}}!</h1>
+                </div>
+                <p class="hero-text" *ngIf="!isAuthenticated">
+                    Află mai multe despre aceasta aplicație
                 </p>
-                <a  routerLink="/about" class="btn">{{home.btntext}}</a>
+                <p class="hero-text" *ngIf="isAuthenticated">
+                    Vezi în ce parametri te afli
+                </p>
+                <a  routerLink="/about" class="btn" *ngIf="!isAuthenticated">Despre</a>
+                <a  routerLink="/calculator" class="btn" *ngIf="isAuthenticated">Calculeaza</a>
             </div>
         </div>
     </section>

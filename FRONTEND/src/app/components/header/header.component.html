@@ -1,8 +1,7 @@
 <header>
     <div class="home">
         <nav class="nav container">
-            <a routerLink="/home" *ngIf="!isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
-            <a routerLink="/dashboard" *ngIf="isAuthenticated" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
+            <a routerLink="/home" class="nav-home-link"><fa-icon [icon]="faHouse"></fa-icon></a>
                 <ul class="main-nav-list">
                     <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/about">Despre <fa-icon [icon]="faCircleInfo"></fa-icon></a></li>
                     <div class="dropdown" *ngIf="isAuthenticated">

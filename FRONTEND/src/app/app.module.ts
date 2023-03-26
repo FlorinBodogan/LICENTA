@@ -22,7 +22,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CookieService } from 'ngx-cookie-service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
@@ -43,7 +42,6 @@ const routes: Routes = [];
     LoginComponent,
     HeaderComponent,
     UserProfileComponent,
-    DashboardComponent,
     CalculatorBmiComponent,
     CalculatorATComponent,
     CalculatorTRComponent,

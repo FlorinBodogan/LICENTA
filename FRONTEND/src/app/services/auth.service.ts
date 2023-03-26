@@ -44,7 +44,7 @@ export class AuthService {
           localStorage.setItem("userId", JSON.stringify(response.userId));
           localStorage.setItem("user", JSON.stringify(response.user));
           this.isUserLogged$.next(true);
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["home"]);
         }),
         catchError(
           this.errorHandlerService.handleError<{

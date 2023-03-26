@@ -10,17 +10,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
-import { NotAuthGuardService } from './services/not-auth-guard.service';
 
 const routes: Routes = [
   {path: "", redirectTo:"/home", pathMatch:"full"},
-  {path: "home", component: HomeComponent, canActivate: [NotAuthGuardService]},
+  {path: "home", component: HomeComponent},
   {path: "about", component: AboutmeComponent},
   {path: "calculator", component: CalculatorComponent, canActivate: [AuthGuardService]},
   {path: "calculatorAT", component: CalculatorATComponent, canActivate: [AuthGuardService]},
@@ -31,7 +29,6 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "header", component: HeaderComponent},
   {path: "userprofile", component: UserProfileComponent, canActivate: [AuthGuardService]},
-  {path: "dashboard", component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: "calculatorbmi", component: CalculatorBmiComponent, canActivate: [AuthGuardService]},
 ];
 
