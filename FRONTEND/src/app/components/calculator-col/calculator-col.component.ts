@@ -4,16 +4,16 @@ import { CalculatorService } from 'src/app/services/calculator.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { first, Observable, of, switchMap, tap } from 'rxjs';
 import { User } from 'src/app/models/User';
-import { Tryglicerides } from 'src/app/models/Tryglicerides';
+import { Colesterol } from 'src/app/models/Colesterol';
 
 @Component({
-  selector: 'app-calculator-tr',
-  templateUrl: './calculator-tr.component.html',
-  styleUrls: ['./calculator-tr.component.css']
+  selector: 'app-calculator-col',
+  templateUrl: './calculator-col.component.html',
+  styleUrls: ['./calculator-col.component.css']
 })
-export class CalculatorTRComponent implements OnInit {
+export class CalculatorCOLComponent implements OnInit {
   userId: Pick<User, "id"> | undefined;
-  calculus$: Observable<Tryglicerides[]>;
+  calculus$: Observable<Colesterol[]>;
 
   @ViewChild("formDirective") formDirective: NgForm;
   @Output() create: EventEmitter<any> = new EventEmitter();
@@ -28,13 +28,13 @@ export class CalculatorTRComponent implements OnInit {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      colesterol: new FormControl("", [Validators.required, Validators.minLength(1)]),
       hdl: new FormControl("", [Validators.required, Validators.minLength(1)]),
       ldl: new FormControl("", [Validators.required, Validators.minLength(1)]),
+      triglycerides: new FormControl("", [Validators.required, Validators.minLength(1)]),
     });
   }
 
-  calculateTR(calculatorFormData: Pick<Tryglicerides, "colesterol" | "hdl" | "ldl">): void {
+  calculateCOL(calculatorFormData: Pick<Colesterol, "hdl" | "ldl" | "triglycerides" >): void {
     const userId = this.authService.userId || this.authService.getUserIdFromToken();
     if (!userId) {
       console.error('User ID is undefined');
@@ -43,31 +43,31 @@ export class CalculatorTRComponent implements OnInit {
     console.log('User ID:', userId);
   
     if (this.calculatorForm.valid) {
-    this.calculatorService.collectDataTR(calculatorFormData, userId).pipe(
+    this.calculatorService.collectDataCOL(calculatorFormData, userId).pipe(
       first(),
-      switchMap(() => this.fetchTR()),
-      tap((results: Tryglicerides[]) => {
+      switchMap(() => this.fetchCOL()),
+      tap((results: Colesterol[]) => {
         if (results.length > 0) {
           const currentResult = (results[0]);
           this.calculatorForm.patchValue({
-            triglycerides: currentResult.result
+            arterialtension: currentResult.result
           });
         }
       })
     ).subscribe(() => {
-      this.calculus$ = this.fetchTR();
+      this.calculus$ = this.fetchCOL();
       this.create.emit(null);
     });
     this.calculatorForm.reset();
     this.formDirective.resetForm();
    }
   }
-  
-  collectDataTR(): void {
-    this.calculus$ = this.fetchTR();
+
+  collectDataCOL(): void {
+    this.calculus$ = this.fetchCOL();
   }
   
-  fetchTR(): Observable<Tryglicerides[]> {
-    return this.calculatorService.fetchTR();
+  fetchCOL(): Observable<Colesterol[]> {
+    return this.calculatorService.fetchCOL();
   }
 }

@@ -10,6 +10,7 @@ const imageRoutes = require('./src/routes/images');
 const errorController = require('./src/controllers/error');
 const arterialRoutes = require('./src/routes/arterialtension');
 const trygliceridesRoutes = require('./src/routes/tryglicerides');
+const colesterolRoutes = require('./src/routes/colesterol');
 
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use('/user', userRoutes);
 app.use('/images', imageRoutes);
 app.use('/arterialtension', arterialRoutes);
 app.use('/tryglicerides', trygliceridesRoutes);
+app.use('/colesterol', colesterolRoutes);
 
 
 app.use('/image', express.static('uploads/'));

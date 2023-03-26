@@ -25,6 +25,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-bmi.component';
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
+import { CalculatorCOLComponent } from './components/calculator-col/calculator-col.component';
 
 
 
@@ -45,6 +46,7 @@ const routes: Routes = [];
     CalculatorBmiComponent,
     CalculatorATComponent,
     CalculatorTRComponent,
+    CalculatorCOLComponent,
   ],
   imports: [
     BrowserModule,
