@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const Tryglicerides = require('../models/tryglicerides');
+const Triglycerides = require('../models/tryglicerides');
 const jwt = require('jsonwebtoken');
 
 exports.postInfoForTR = async (req, res, next) => {
@@ -14,22 +14,22 @@ exports.postInfoForTR = async (req, res, next) => {
     const ldl = req.body.ldl;
     const user = req.body.user;
 
-    //Tryglicerides
+    //Triglycerides
     try {
-        const trygliceridesDetails = {
+        const triglyceridesDetails = {
             colesterol: colesterol,
             hdl: hdl,
             ldl: ldl,
             user: user
         };
 
-        const resultTR = await Tryglicerides.calculateTryglicerides(trygliceridesDetails);
+        const resultTR = await Triglycerides.calculateTryglicerides(triglyceridesDetails);
 
-        const result = await Tryglicerides.saveTRResult({
+        const result = await Triglycerides.saveTRResult({
             resultTR: resultTR,
-            colesterol: trygliceridesDetails.colesterol,
-            hdl: trygliceridesDetails.hdl,
-            ldl: trygliceridesDetails.ldl,
+            colesterol: triglyceridesDetails.colesterol,
+            hdl: triglyceridesDetails.hdl,
+            ldl: triglyceridesDetails.ldl,
             user: user
         });
 
@@ -45,7 +45,7 @@ exports.postInfoForTR = async (req, res, next) => {
 exports.fetchTRResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [tr] = await Tryglicerides.fetchTRResultById(decodedToken.userId);
+        const [tr] = await Triglycerides.fetchTRResultById(decodedToken.userId);
         res.status(200).json(tr);
 
     } catch(e){
@@ -60,7 +60,7 @@ exports.fetchTRResultById = async(req, res, next) => {
 exports.fetchAllTRResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [tr] = await Tryglicerides.fetchAllTRResultById(decodedToken.userId);
+        const [tr] = await Triglycerides.fetchAllTRResultById(decodedToken.userId);
         res.status(200).json(tr);
 
     } catch(e){
@@ -75,7 +75,7 @@ exports.fetchAllTRResultById = async(req, res, next) => {
 exports.fetchAllTRDateById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [tr] = await Tryglicerides.fetchAllTRDateById(decodedToken.userId);
+        const [tr] = await Triglycerides.fetchAllTRDateById(decodedToken.userId);
         res.status(200).json(tr);
 
     } catch(e){
@@ -90,7 +90,7 @@ exports.fetchAllTRDateById = async(req, res, next) => {
 exports.fetchTRResultForAll = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [result] = await Tryglicerides.fetchTRResultForAll(decodedToken.userId);
+        const [result] = await Triglycerides.fetchTRResultForAll(decodedToken.userId);
         res.status(200).json(result);
 
     } catch(e){
@@ -105,7 +105,7 @@ exports.fetchTRResultForAll = async(req, res, next) => {
 exports.fetchTRById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [result] = await Tryglicerides.fetchTRById(decodedToken.userId);
+        const [result] = await Triglycerides.fetchTRById(decodedToken.userId);
         res.status(200).json(result);
 
     } catch(e){
@@ -120,10 +120,10 @@ exports.fetchTRById = async(req, res, next) => {
 exports.getTRCounts = async (req, res, next) => {
     try {
       const countPromises = [];
-      countPromises.push(Tryglicerides.getCountForTR('Normal'));
-      countPromises.push(Tryglicerides.getCountForTR('Limita Normalului'));
-      countPromises.push(Tryglicerides.getCountForTR('Ridicat'));
-      countPromises.push(Tryglicerides.getCountForTR('Foarte Ridicat'));
+      countPromises.push(Triglycerides.getCountForTR('Normal'));
+      countPromises.push(Triglycerides.getCountForTR('Limita Normalului'));
+      countPromises.push(Triglycerides.getCountForTR('Ridicat'));
+      countPromises.push(Triglycerides.getCountForTR('Foarte Ridicat'));
   
       const counts = await Promise.all(countPromises);
   

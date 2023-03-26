@@ -1,4 +1,4 @@
-export interface Tryglicerides {
+export interface Triglycerides {
     id: number,
     colesterol: number,
     hdl: number,

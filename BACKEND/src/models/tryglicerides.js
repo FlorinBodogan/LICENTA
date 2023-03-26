@@ -1,6 +1,6 @@
 const db = require('../util/database');
 
-module.exports = class Tryglicerides {
+module.exports = class Triglycerides {
     constructor(colesterol, hdl, ldl, user){
         this.colesterol = colesterol;
         this.hdl = hdl;
@@ -8,25 +8,25 @@ module.exports = class Tryglicerides {
         this.user = user;
     }
 
-    static calculateTryglicerides(trygliceridesDetails) {
-        if (isNaN(trygliceridesDetails.colesterol) || isNaN(trygliceridesDetails.hdl) || isNaN(trygliceridesDetails.ldl)) {
+    static calculateTryglicerides(triglyceridesDetails) {
+        if (isNaN(triglyceridesDetails.colesterol) || isNaN(triglyceridesDetails.hdl) || isNaN(triglyceridesDetails.ldl)) {
           throw new Error("Valori invalide");
         }
         
-        const colesterol = trygliceridesDetails.colesterol;
-        const trygliceridesHDL = trygliceridesDetails.ldl;
-        const trygliceridesLDL = trygliceridesDetails.hdl;
+        const colesterol = triglyceridesDetails.colesterol;
+        const triglyceridesHDL = triglyceridesDetails.ldl;
+        const triglyceridesLDL = triglyceridesDetails.hdl;
 
-        const tryglicerides = 5 * (colesterol - trygliceridesHDL - trygliceridesLDL);
+        const triglycerides = 5 * (colesterol - triglyceridesHDL - triglyceridesLDL);
         let category = "";
 
-        if (tryglicerides <= 150) {
+        if (triglycerides <= 150) {
           category = "Normal";
-        } else if (151 <= tryglicerides && tryglicerides <= 199) {
+        } else if (151 <= triglycerides && triglycerides <= 199) {
           category = "Limita Normalului";
-        } else if (200 <= tryglicerides && tryglicerides <= 500) {
+        } else if (200 <= triglycerides && triglycerides <= 500) {
           category = "Ridicat";
-        } else if (500 <= tryglicerides) {
+        } else if (500 <= triglycerides) {
           category = "Foarte Ridicat";
         }
         return category;

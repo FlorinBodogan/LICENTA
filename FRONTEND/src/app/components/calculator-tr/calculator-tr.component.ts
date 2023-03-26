@@ -4,7 +4,7 @@ import { CalculatorService } from 'src/app/services/calculator.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { first, Observable, of, switchMap, tap } from 'rxjs';
 import { User } from 'src/app/models/User';
-import { Tryglicerides } from 'src/app/models/Tryglicerides';
+import { Triglycerides } from 'src/app/models/Triglycerides';
 
 @Component({
   selector: 'app-calculator-tr',
@@ -13,7 +13,7 @@ import { Tryglicerides } from 'src/app/models/Tryglicerides';
 })
 export class CalculatorTRComponent implements OnInit {
   userId: Pick<User, "id"> | undefined;
-  calculus$: Observable<Tryglicerides[]>;
+  calculus$: Observable<Triglycerides[]>;
 
   @ViewChild("formDirective") formDirective: NgForm;
   @Output() create: EventEmitter<any> = new EventEmitter();
@@ -34,7 +34,7 @@ export class CalculatorTRComponent implements OnInit {
     });
   }
 
-  calculateTR(calculatorFormData: Pick<Tryglicerides, "colesterol" | "hdl" | "ldl">): void {
+  calculateTR(calculatorFormData: Pick<Triglycerides, "colesterol" | "hdl" | "ldl">): void {
     const userId = this.authService.userId || this.authService.getUserIdFromToken();
     if (!userId) {
       console.error('User ID is undefined');
@@ -46,7 +46,7 @@ export class CalculatorTRComponent implements OnInit {
     this.calculatorService.collectDataTR(calculatorFormData, userId).pipe(
       first(),
       switchMap(() => this.fetchTR()),
-      tap((results: Tryglicerides[]) => {
+      tap((results: Triglycerides[]) => {
         if (results.length > 0) {
           const currentResult = (results[0]);
           this.calculatorForm.patchValue({
@@ -67,7 +67,7 @@ export class CalculatorTRComponent implements OnInit {
     this.calculus$ = this.fetchTR();
   }
   
-  fetchTR(): Observable<Tryglicerides[]> {
+  fetchTR(): Observable<Triglycerides[]> {
     return this.calculatorService.fetchTR();
   }
 }

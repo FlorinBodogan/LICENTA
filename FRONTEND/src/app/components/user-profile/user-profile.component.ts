@@ -11,7 +11,7 @@ import { Chart, registerables } from 'node_modules/chart.js';
 import { Rmb_result } from 'src/app/models/Rmb_result';
 import { UserInfo } from 'src/app/models/UserInfo';
 import { ArterialTension } from 'src/app/models/ArterialTension';
-import { Tryglicerides } from 'src/app/models/Tryglicerides';
+import { Triglycerides } from 'src/app/models/Triglycerides';
 Chart.register(...registerables); 
 
 @Component({
@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
   userInfo$: Observable<User[]>;
   userWeight$: Observable<UserInfo[]>;
   userAT$: Observable<ArterialTension[]>;
-  userTR$: Observable<Tryglicerides[]>;
+  userTR$: Observable<Triglycerides[]>;
   
   userBmiResult: Observable<Bmi_result[]>;
   userBmiDateResult: Observable<Bmi_result[]>;
@@ -229,7 +229,7 @@ export class UserProfileComponent implements OnInit {
     return this.calculatorService.fetchATByID();
   }
 
-  fetchTRByID(): Observable<Tryglicerides[]> {
+  fetchTRByID(): Observable<Triglycerides[]> {
     return this.calculatorService.fetchTRByID();
   }
 

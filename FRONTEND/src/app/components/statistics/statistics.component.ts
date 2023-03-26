@@ -5,7 +5,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { Bmi_result } from 'src/app/models/Bmi_result';
 import { CalculatorService } from 'src/app/services/calculator.service';
 import { ArterialTension } from 'src/app/models/ArterialTension';
-import { Tryglicerides } from 'src/app/models/Tryglicerides';
+import { Triglycerides } from 'src/app/models/Triglycerides';
 Chart.register(...registerables); 
 
 @Component({
@@ -20,7 +20,7 @@ constructor(private calculatorService:CalculatorService) {}
 userBmiCategory: Observable<Bmi_result[]>;
 userActivity: Observable<UserInfo[]>;
 userATCategory: Observable<ArterialTension[]>;
-userTRCategory: Observable<Tryglicerides[]>;
+userTRCategory: Observable<Triglycerides[]>;
 
 bmiChart: any;
 activityChart: any;
@@ -92,7 +92,7 @@ ngOnInit(): void {
     this.updateChartDataArterial(counts);
   });
 
-  this.userTRCategory.subscribe((data: Tryglicerides[]) => {
+  this.userTRCategory.subscribe((data: Triglycerides[]) => {
     const counts = [
       data.filter((item) => item.result === 'Normal').length,
       data.filter((item) => item.result === 'Limita Normalului').length,
@@ -341,7 +341,7 @@ displayChartTryglicerides() {
    return this.calculatorService.fetchATAllCategories();
  }
 
- fetchTRAllCategories(): Observable<Tryglicerides[]> {
+ fetchTRAllCategories(): Observable<Triglycerides[]> {
    return this.calculatorService.fetchTRAllCategories();
  }
 
