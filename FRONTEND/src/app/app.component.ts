@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   //check JWT Expire DATE
   isTokenExpired(token: string): boolean {
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
       this.authService.isUserLogged$.next(true);
     } else {
       this.authService.isUserLogged$.next(false);
+      this.router.navigate(["home"]);
     }
   }
 }
