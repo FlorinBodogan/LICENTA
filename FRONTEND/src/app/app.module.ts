@@ -26,6 +26,8 @@ import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-b
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 import { CalculatorCOLComponent } from './components/calculator-col/calculator-col.component';
+import { BmiComponent } from './components/charts/bmi/bmi.component';
+import { RmbComponent } from './components/charts/rmb/rmb.component';
 
 
 
@@ -47,6 +49,8 @@ const routes: Routes = [];
     CalculatorATComponent,
     CalculatorTRComponent,
     CalculatorCOLComponent,
+    BmiComponent,
+    RmbComponent,
   ],
   imports: [
     BrowserModule,

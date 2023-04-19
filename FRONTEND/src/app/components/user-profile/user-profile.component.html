@@ -2,8 +2,12 @@
     <body>
         <div class="userprofile-container">
             <div class="userprofile" *ngFor="let user of userInfo$ | async">
-                <div class="user-name">
-                    <!-- {{user.name}} -->
+                <div class="dropdown">
+                    <button class="dropbtn">Statistici</button>
+                    <div class="dropdown-content">
+                        <a class="main-nav-link" (click)="selectComponent('BMI')">Indice Masă Corporală</a>
+                        <a class="main-nav-link" (click)="selectComponent('RMB')">Rată Metabolică Bazală</a>
+                    </div>
                 </div>
                 <div class="user-photo">                 
                     <!-- <form [formGroup]="uploadForm" (ngSubmit)="uploadPhoto()" enctype='multipart/form-data'>
@@ -12,14 +16,14 @@
                            <button class="btn"><fa-icon [icon]="faUpload"></fa-icon></button> 
                         </div>
                     </form> -->
-                    <img src="assets/img/hero2.jpg" class="img-user" alt="user photo" width="270" height="250"> 
-                </div>
-                <div class="user-description">
-                    Detalii cont:
-                    <br>
-                    Nume utilizator: {{user.name}}
-                    <br>
-                    Email: {{user.email}}
+                    <img src="assets/img/user.png" class="img-user" alt="user photo" width="270" height="250"> 
+                    <div class="user-description">
+                        Detalii cont:
+                        <br>
+                        Nume utilizator: {{user.name}}
+                        <br>
+                        Email: {{user.email}}
+                        </div>
                 </div>
             </div>
             <div class="flex-container">
@@ -34,7 +38,11 @@
                         <h2>Trigliceride: {{user.result}}</h2>
                     </div> 
                 </div>
-                <canvas id="chartBMI" class="userprofile-statistics-container" style="height: 350px; width: 800px;"></canvas>
+                <!-- <canvas id="chartBMI" class="userprofile-statistics-container" style="height: 350px; width: 800px;"></canvas> -->
+                <div class="chart-box">
+                    <app-rmb *ngIf="selectedComponent === 'RMB'"></app-rmb>
+                    <app-bmi *ngIf="selectedComponent === 'BMI'"></app-bmi>
+                  </div>
             </div>
         </div>
     </body>

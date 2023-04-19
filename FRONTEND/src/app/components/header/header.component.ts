@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { faBars, faXmark, faHouse, faRightFromBracket, faCalculator, faRightToBracket, faUserPlus, faCircleInfo, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   faUser = faUser;
   
   isAuthenticated = false;
+  sticky: boolean = false;
 
   constructor(private authService: AuthService, private router: Router){}
 
@@ -34,5 +35,23 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("token");
     this.authService.isUserLogged$.next(false);
     this.router.navigate(["home"]);
+  }
+
+  //MOBILE NAV
+  public isMenuOpen: boolean = false;
+  public menuClass: string = "";
+
+  public toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+    if (this.isMenuOpen) {
+      this.menuClass = "nav-open"; 
+    } else {
+      this.menuClass = ""; 
+    }
+  }
+  
+  public selectPage(): void {
+    this.isMenuOpen = false;
+    this.menuClass = "";
   }
 }

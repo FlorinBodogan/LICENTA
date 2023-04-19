@@ -14,6 +14,8 @@ import { CalculatorBmiComponent } from './components/calculator-bmi/calculator-b
 import { CalculatorATComponent } from './components/calculator-at/calculator-at.component';
 import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.component';
 import { CalculatorCOLComponent } from './components/calculator-col/calculator-col.component';
+import { BmiComponent } from './components/charts/bmi/bmi.component';
+import { RmbComponent } from './components/charts/rmb/rmb.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
 
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path: "userprofile", component: UserProfileComponent, canActivate: [AuthGuardService]},
   {path: "calculatorBMI", component: CalculatorBmiComponent, canActivate: [AuthGuardService]},
   {path: "calculatorCOL", component: CalculatorCOLComponent, canActivate: [AuthGuardService]},
+  {path: "bmi", component: BmiComponent, canActivate: [AuthGuardService]},
+  {path: "rmb", component: RmbComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

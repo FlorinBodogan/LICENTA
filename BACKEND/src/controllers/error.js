@@ -4,7 +4,7 @@ exports.get404 = (req, res, next) => {
     next(e);
 };
   
-  exports.get500 = (e, req, res, next) => {
+exports.get500 = (e, req, res, next) => {
     const data = e.data;
     res.status(e.statusCode || 500);
     res.json({

@@ -1,8 +1,5 @@
 <body>
 <div class="home">
-    <video autoplay muted loop>
-        <source src="assets/img/dashboardvideo.mp4" type="video/mp4">
-    </video>
     <div class="video-overlay"></div>
     <section class="hero-section">
         <div class="home-container">
@@ -17,8 +14,8 @@
                 <p class="hero-text" *ngIf="isAuthenticated">
                     Vezi în ce parametri te afli
                 </p>
-                <a  routerLink="/about" class="btn" *ngIf="!isAuthenticated">Despre</a>
-                <a  routerLink="/calculator" class="btn" *ngIf="isAuthenticated">Calculeaza</a>
+                <a  routerLink="/about" class="btn btn--home" *ngIf="!isAuthenticated">Despre</a>
+                <a  routerLink="/calculator" class="btn btn--home" *ngIf="isAuthenticated">Calculeaza</a>
             </div>
         </div>
     </section>
