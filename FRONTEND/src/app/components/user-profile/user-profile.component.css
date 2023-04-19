@@ -112,7 +112,7 @@
   margin-bottom: 6.4rem;
 }
 
-/* CARDS */
+/* -------CARDS------------- */
 
 .card {
     width: 190px;
@@ -138,12 +138,12 @@
     content: '';
     position: absolute;
     width: 100px;
-    background-image: linear-gradient(180deg, rgb(44, 217, 41), rgb(15, 67, 39));
+    background-image: linear-gradient(180deg, rgb(44, 217, 41), rgb(221, 231, 32));
     height: 130%;
     animation: rotBGimg 3s linear infinite;
     transition: all 0.2s linear;
   }
-  
+
   @keyframes rotBGimg {
     from {
       transform: rotate(0deg);
@@ -157,18 +157,15 @@
   .card::after {
     content: '';
     position: absolute;
-    background: #1f2f1e;
-    ;
+    background: #161313;
     inset: 5px;
     border-radius: 15px;
   }  
 
-  /* DROP MENU */
-
-  /* dropmenu */
+/* -------------DROP MENU--------- */
 .dropdown {
   margin-top: 4vh;
-  margin-bottom: 15vh;
+  margin-bottom: 10vh;
   float: left;
 }
 

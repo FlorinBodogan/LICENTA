@@ -28,15 +28,15 @@
             </div>
             <div class="flex-container">
                 <div class="results-container">
-                    <div class="card" *ngFor="let user of userWeight$ | async">
-                        <h2>Kilograme: {{user.weight}}</h2>
-                    </div>
                     <div class="card" *ngFor="let user of userAT$ | async">
                         <h2>Tensiune Arteriala: {{user.result}}</h2>
                     </div>
                     <div class="card" *ngFor="let user of userTR$ | async">
                         <h2>Trigliceride: {{user.result}}</h2>
                     </div> 
+                    <div class="card" *ngFor="let user of userCol$ | async">
+                        <h2>Colesterol: {{user.result}}</h2>
+                    </div>
                 </div>
                 <!-- <canvas id="chartBMI" class="userprofile-statistics-container" style="height: 350px; width: 800px;"></canvas> -->
                 <div class="chart-box">

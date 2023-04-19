@@ -6,6 +6,7 @@ import { Bmi_result } from 'src/app/models/Bmi_result';
 import { CalculatorService } from 'src/app/services/calculator.service';
 import { ArterialTension } from 'src/app/models/ArterialTension';
 import { Triglycerides } from 'src/app/models/Triglycerides';
+import { Colesterol } from 'src/app/models/Colesterol';
 Chart.register(...registerables); 
 
 @Component({
@@ -21,11 +22,13 @@ userBmiCategory: Observable<Bmi_result[]>;
 userActivity: Observable<UserInfo[]>;
 userATCategory: Observable<ArterialTension[]>;
 userTRCategory: Observable<Triglycerides[]>;
+userColCategory: Observable<Colesterol[]>;
 
 bmiChart: any;
 activityChart: any;
 arterialChart: any;
 trygliceridesChart: any;
+colesterolChart: any;
 
 updateChartDataBmi(data: number[]) {
   this.bmiChart.data.datasets[0].data = data;
@@ -47,16 +50,23 @@ updateChartDataTryglicerides(data: number[]) {
   this.trygliceridesChart.update();
 }
 
+updateChartDataColesterol(data: number[]) {
+  this.colesterolChart.data.datasets[0].data = data;
+  this.colesterolChart.update();
+}
+
 ngOnInit(): void {
   this.userBmiCategory = this.fetchBmiAllCategories();
   this.userActivity = this.fetchAllActivity();
   this.userATCategory = this.fetchATAllCategories();
   this.userTRCategory = this.fetchTRAllCategories();
+  this.userColCategory = this.fetchColAllCategories();
   
   this.displayChartBmi();
   this.displayChartActivity();
   this.displayChartArterial();
   this.displayChartTryglicerides();
+  this.displayChartColesterol();
 
   this.userBmiCategory.subscribe((data: Bmi_result[]) => {
     const counts = [
@@ -102,6 +112,15 @@ ngOnInit(): void {
     this.updateChartDataTryglicerides(counts);
   });
 
+  this.userColCategory.subscribe((data: Colesterol[]) => {
+    const counts = [
+      data.filter((item) => item.result === 'Normal').length,
+      data.filter((item) => item.result === 'Limita Normalului').length,
+      data.filter((item) => item.result === 'Ridicat').length,
+    ];
+    this.updateChartDataColesterol(counts);
+  });
+
 }
 
 displayChartBmi() {
@@ -118,7 +137,7 @@ displayChartBmi() {
       }]
     },
     options: {
-      aspectRatio: 1.5,
+      aspectRatio: 2,
       scales: {
         x: {
           beginAtZero: true,
@@ -173,7 +192,7 @@ displayChartActivity() {
       }]
     },
     options: {
-      aspectRatio: 1.5,
+      aspectRatio: 2,
       scales: {
         x: {
           beginAtZero: true,
@@ -229,7 +248,7 @@ displayChartArterial() {
       }]
     },
     options: {
-      aspectRatio: 1.5,
+      aspectRatio: 2,
       scales: {
         x: {
           beginAtZero: true,
@@ -252,7 +271,7 @@ displayChartArterial() {
         },
         title: {
           display: true,
-          text: 'Nivel Activitate',
+          text: 'Nivel Tensiune Arteriala',
           color: 'black' 
         }
       }
@@ -287,7 +306,7 @@ displayChartTryglicerides() {
       }]
     },
     options: {
-      aspectRatio: 1.5,
+      aspectRatio: 2,
       scales: {
         x: {
           beginAtZero: true,
@@ -328,6 +347,60 @@ displayChartTryglicerides() {
   });
 }
 
+displayChartColesterol() {
+  this.colesterolChart = new Chart('colesterolChart', {
+    type: 'pie',
+    data: {
+      labels: ["Normal", "Limita Normalului", "Ridicat"], 
+      datasets: [{
+        label: 'Nivelul colesterolului la nivelul tututor utilizatorilor',
+        data: [] as Array<number>,
+        borderWidth: 3,
+        borderColor: 'white',
+        backgroundColor: ['red', 'yellow', 'green'],
+      }]
+    },
+    options: {
+      aspectRatio: 2,
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            color: 'black'
+          }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: 'black',
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: 'black' 
+          }
+        },
+        title: {
+          display: true,
+          text: 'Nivel Trigliceride',
+          color: 'black' 
+        }
+      }
+    }
+  });
+
+  const countObservables = [];
+  countObservables.push(this.calculatorService.getCountForCOLCategory('Normal'));
+  countObservables.push(this.calculatorService.getCountForCOLCategory('Limita Normalului'));
+  countObservables.push(this.calculatorService.getCountForCOLCategory('Ridicat'));
+
+  forkJoin(countObservables).subscribe(counts => {
+    this.updateChartDataColesterol(counts);
+  });
+}
+
 //user statistics
  fetchBmiAllCategories(): Observable<Bmi_result[]> {
    return this.calculatorService.fetchBmiAllCategories();
@@ -343,6 +416,10 @@ displayChartTryglicerides() {
 
  fetchTRAllCategories(): Observable<Triglycerides[]> {
    return this.calculatorService.fetchTRAllCategories();
+ }
+
+ fetchColAllCategories(): Observable<Colesterol[]> {
+   return this.calculatorService.fetchCOLAllCategories();
  }
 
 }

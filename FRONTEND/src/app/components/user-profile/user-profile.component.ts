@@ -10,6 +10,7 @@ import { Chart, registerables } from 'node_modules/chart.js';
 import { UserInfo } from 'src/app/models/UserInfo';
 import { ArterialTension } from 'src/app/models/ArterialTension';
 import { Triglycerides } from 'src/app/models/Triglycerides';
+import { Colesterol } from 'src/app/models/Colesterol';
 Chart.register(...registerables); 
 
 @Component({
@@ -24,7 +25,7 @@ export class UserProfileComponent implements OnInit {
 
   userId: Pick<User, "id">;
   userInfo$: Observable<User[]>;
-  userWeight$: Observable<UserInfo[]>;
+  userCol$: Observable<Colesterol[]>;
   userAT$: Observable<ArterialTension[]>;
   userTR$: Observable<Triglycerides[]>;
 
@@ -41,7 +42,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfo$ = this.fetchUser();
-    this.userWeight$ = this.fetchWeightByID();
+    this.userCol$ = this.fetchColByID();
     this.userAT$ = this.fetchATByID();
     this.userTR$ = this.fetchTRByID();
     this.userId = this.userService.userId;
@@ -75,8 +76,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   //cards info
-  fetchWeightByID(): Observable<UserInfo[]> {
-    return this.calculatorService.fetchWeightByID();
+  fetchColByID(): Observable<Colesterol[]> {
+    return this.calculatorService.fetchCOLByID();
   }
 
   fetchATByID(): Observable<ArterialTension[]> {
