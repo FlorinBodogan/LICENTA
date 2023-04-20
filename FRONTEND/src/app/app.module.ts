@@ -56,7 +56,7 @@ const routes: Routes = [];
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    RouterModule.forRoot(routes),
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

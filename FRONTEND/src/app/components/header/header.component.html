@@ -1,6 +1,6 @@
 <header [ngClass]="menuClass">
     <div class="nav-section">
-        <nav class="nav container">
+        <nav class="nav">
             <a routerLink="/home" class="nav-home-link" routerLinkActive="active"><fa-icon [icon]="faHouse"></fa-icon></a>
                 <ul class="main-nav-list">
                     <li><a class="main-nav-link" *ngIf="isAuthenticated" routerLink="/about" routerLinkActive="active">Despre <fa-icon [icon]="faCircleInfo"></fa-icon></a></li>

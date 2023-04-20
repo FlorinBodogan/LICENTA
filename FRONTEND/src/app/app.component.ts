@@ -23,9 +23,12 @@ export class AppComponent implements OnInit {
     const checkLogged = localStorage.getItem("token");
     if(checkLogged !== null && !this.isTokenExpired(checkLogged)) {
       this.authService.isUserLogged$.next(true);
-    } else {
+    } else if (checkLogged !== null && this.isTokenExpired(checkLogged)) {
       this.authService.isUserLogged$.next(false);
       this.router.navigate(["home"]);
+    } else {
+      this.authService.isUserLogged$.next(false);
     }
   }
+  
 }
