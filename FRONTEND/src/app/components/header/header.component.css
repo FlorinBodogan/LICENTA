@@ -71,6 +71,7 @@
   
   /* Dropdown button */
   .dropdown .dropbtn {
+    cursor: pointer;
     border: none;
     outline: none;
     color: #fff;
@@ -80,6 +81,7 @@
     background-color: inherit;
     border-bottom: 2px solid;
     padding-bottom: 1.2rem; 
+    transition: all 0.3s;
   }
   
   .navbar a:hover, .dropdown:hover .dropbtn {

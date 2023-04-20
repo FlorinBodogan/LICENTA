@@ -35,8 +35,8 @@ export class RmbComponent {
           label: 'Rata Metabolica Bazala',
           data: [] as Array<number>,
           borderWidth: 4,
-          borderColor: 'yellow',
-          backgroundColor: ['yellow'],
+          borderColor: '#f2ff00d5',
+          backgroundColor: ['#f2ff00d5'],
         }]
       },
       options: {

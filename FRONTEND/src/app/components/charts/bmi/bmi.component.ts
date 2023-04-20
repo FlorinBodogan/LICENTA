@@ -37,8 +37,8 @@ export class BmiComponent {
           label: 'Indice Masa Corporala',
           data: [] as Array<number>,
           borderWidth: 3,
-          borderColor: 'white',
-          backgroundColor: ['#2cd929'],
+          borderColor: '#04ff00e1',
+          backgroundColor: ['#04ff00e1'],
         }]
       },
       options: {
