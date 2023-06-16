@@ -96,3 +96,12 @@
     background-color: #fff;
     color: #333;
 }
+
+/* ------------------------------------------------- */
+/* ---------------- MEDIA QUERIES ------------------ */
+
+@media(max-width:58.625em){ 
+    .calculator .heading-secondary{
+        font-size: 3rem;
+    }
+}

@@ -4,7 +4,7 @@
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.651), rgba(114, 114, 114, 0.1)), url("/assets/img/hero30.jpg");
+    background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.568), rgba(0, 0, 0, 0.637)), url("/assets/img/foodhome.jpg");
     background-size: cover;
     background-position: center center;
     z-index: 1;
@@ -20,11 +20,13 @@
 }
 
 .hero-text-box{
-    color: #f2f2f2;
+    color: #fdfdfd;
+    animation: fadeIn 1.2s;
 }
 
 .heading-primary--hero{
     color: #fff;
+    animation: fadeFromTop 1.2s;
 }
 
 .hero-text{
@@ -32,8 +34,6 @@
     line-height: 1.6rem;
     margin-bottom: 4.8rem;
 }
-
-
 
 .btn--home{
     background-color: transparent;
@@ -44,10 +44,192 @@
     transition: all 0.5s;
     font-size: 2.4rem;
     cursor: pointer;
+    animation: fadeFromBottom 1.2s;
 }
 
 .btn--home:hover, .btn--home:active{
     background-color: #3eb058;
+}
+
+@keyframes fadeFromBottom{
+  from {
+      opacity: 0;
+      transform: translate(0, 600px);
+  }
+
+  to{
+      opacity: 1;
+      transform: translate(0);
+  }
+}   
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to{
+      opacity: 1;
+  }
+}
+
+@keyframes fadeFromTop{
+  from{
+      opacity: 0;
+      transform: translate(0, -600px);
+  }
+
+  to{
+      opacity: 1;
+      transform: translate(0);
+  }
+}
+
+/***********************************************************************************/
+/* ------------------ MEDIA QUERIES ---------------------------------------------- */
+/***********************************************************************************/
+
+/******************************/
+/* ----- Bellow 1140px ---- */
+/******************************/
+
+@media(max-width:71.25em){
+  .home-container{
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translate(-30%, -50%);
+    text-align: center;
+    z-index: 9999;
+  }
+}
+
+/******************************/
+/* ----- Bellow 948px ---- */
+/******************************/
+
+@media(max-width:59.25em){
+  .home-container{
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translate(-20%, -50%);
+    text-align: center;
+    z-index: 9999;
+  }
+}
+
+/******************************/
+/* ----- Bellow 812px ---- */
+/******************************/
+
+@media(max-width:50.75em){
+  .heading-primary--hero{
+    font-size: 4.8rem;
+  }
+
+  .heading-tertiary--hero{
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .hero-text{
+    font-size: 2rem;
+    line-height: 1.6rem;
+    margin-bottom: 4rem;
+  }
+}
+
+/******************************/
+/* ----- Bellow 610px ---- */
+/******************************/
+
+@media(max-width:38.125em){
+  .heading-primary--hero{
+    font-size: 3.6rem;
+  }
+
+  .heading-tertiary--hero{
+    margin-bottom: 1.6rem;
+    font-size: 1.6rem;
+  }
+
+  .hero-text{
+    font-size: 1.8rem;
+    line-height: 1.6rem;
+    margin-bottom: 3.5rem;
+  }
+}
+
+/******************************/
+/* ----- Bellow 454px ---- */
+/******************************/
+
+@media(max-width:28.135em){
+  .heading-primary--hero{
+    font-size: 3rem;
+  }
+
+  .heading-tertiary--hero{
+    margin-bottom: 1.6rem;
+    font-size: 1.6rem;
+  }
+
+  .hero-text{
+    display: none;
+  }
+
+  .btn--home{
+    font-size: 1.6rem;
+    padding: 1.4rem 3.2rem;
+  }
+}
+
+/******************************/
+/* ----- Bellow 378px ---- */
+/******************************/
+
+@media(max-width:23.625em){
+  .heading-primary--hero{
+    font-size: 2.4rem;
+  }
+
+  .heading-tertiary--hero{
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+  }
+
+  .hero-text{
+    display: none;
+  }
+
+  .btn--home{
+    font-size: 1.2rem;
+    padding: 1.2rem 2.4rem;
+  }
+}
+
+/******************************/
+/* ----- Bellow 298px ---- */
+/******************************/
+
+@media(max-width:18.625em){
+  .heading-primary--hero{
+    font-size: 2rem;
+  }
+
+  .heading-tertiary--hero{
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+  }
+
+  .hero-text{
+    display: none;
+  }
+
+  .btn--home{
+    font-size: 1rem;
+    padding: 1.2rem 2rem;
+  }
 }
 
 

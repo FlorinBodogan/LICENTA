@@ -6,11 +6,16 @@ const jwt = require('jsonwebtoken');
 exports.register = async(req, res, next) => {
     const errors = validationResult(req);
 
-    if(!errors.isEmpty()) return;
+    if (!errors.isEmpty()) {
+      return res.status(201).json({
+        message: 'Există deja un cont cu acest nume sau email.'
+      });
+    }
 
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const role = 'user';
 
     try{
         const hashPassword = await bcrypt.hash(password, 11);
@@ -18,13 +23,14 @@ exports.register = async(req, res, next) => {
         const userDetails = {
             name: name,
             email: email,
-            password: hashPassword
+            password: hashPassword,
+            role: role
         };
 
         const result = await User.save(userDetails);
 
         res.status(201).json({
-            message: 'Utilizatorul a fost inregistrat'
+            message: 'Contul a fost creat cu succes!'
         });
     } catch(e){
         if(!e.statusCode){
@@ -59,6 +65,8 @@ exports.login = async (req, res, next) => {
         {
           name: retainedUser.name,
           userId: retainedUser.id,
+          role: retainedUser.role,
+          status: retainedUser.status
         },
         'secretWebToken',
         { expiresIn: '14d' }

@@ -24,3 +24,48 @@
 .img-step{
     width: 80%;
 }
+
+@media only screen and (max-width: 1024px) {
+    .about-section {
+        margin: 6.4rem 0;
+    }
+
+    .step-number {
+        font-size: 6.4rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .description-step {
+        font-size: 1.6rem;
+        line-height: 1.8;
+    }
+
+    .img-step {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .about-section {
+        margin: 4.8rem 0;
+    }
+
+    .grid--center-v {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .step-number {
+        font-size: 4.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .description-step {
+        font-size: 1.4rem;
+        line-height: 1.6;
+    }
+
+    .img-step {
+        width: 60%;
+    }
+}

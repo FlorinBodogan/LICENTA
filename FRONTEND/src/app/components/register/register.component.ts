@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  registerSucceded: boolean = false;
+  submitted: boolean = false;
+  response: any = "";
 
   constructor(private authService: AuthService){}
 
@@ -16,15 +20,43 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.createFormGroup();
   }
 
-  createFormGroup(): FormGroup{
-    return new FormGroup({
-      name: new FormControl("", [Validators.required, Validators.minLength(3)]),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required, Validators.minLength(6)])
-    })
+  createFormGroup(): FormGroup {
+    return new FormGroup(
+      {
+        name: new FormControl("", [Validators.required, Validators.minLength(3)]),
+        email: new FormControl("", [Validators.required, Validators.email]),
+        password: new FormControl("", [Validators.required, Validators.minLength(6)]),
+        confirmPassword: new FormControl("", Validators.required)
+      },
+      { validators: this.passwordConfirmationValidator.bind(this) }
+    );
+  } 
+
+  passwordConfirmationValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword) {
+      control.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    }
+
+    return null;
   }
 
-  register(): void{
-    this.authService.register(this.registerForm.value).subscribe((message => console.log(message)));
+  register(): void {
+    this.submitted = true;
+  if (this.registerForm.valid) {
+    this.registerSucceded = true;
+    this.authService.register(this.registerForm.value).subscribe((response: any) => {
+    this.response = response.message;
+  });
+  } else {
+    Object.keys(this.registerForm.controls).forEach(controlName => {
+      const control = this.registerForm.controls[controlName];
+      control.markAsTouched();
+    });
   }
+  }
+
 }

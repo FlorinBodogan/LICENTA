@@ -28,6 +28,8 @@ import { CalculatorTRComponent } from './components/calculator-tr/calculator-tr.
 import { CalculatorCOLComponent } from './components/calculator-col/calculator-col.component';
 import { BmiComponent } from './components/charts/bmi/bmi.component';
 import { RmbComponent } from './components/charts/rmb/rmb.component';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
 
 
 
@@ -51,6 +53,8 @@ const routes: Routes = [];
     CalculatorCOLComponent,
     BmiComponent,
     RmbComponent,
+    UserHistoryComponent,
+    AdminPageComponent,
   ],
   imports: [
     BrowserModule,

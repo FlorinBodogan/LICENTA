@@ -1,87 +1,166 @@
-.registration-section{
-    padding: 4.8rem 0 9.6rem 0;
-    background-color: #f4fde9;
-    height: 88vh;
+.registration-section {
+  padding: 4.8rem 0 9.6rem 0;
+  background-color: #f4fde9;
+  height: 90vh;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .registration{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    width: 60vw;
+    grid-template-columns: 1fr;
     box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
     background-image: linear-gradient(to right bottom,#d3eeb6, #c3f18a, #9be162, #fff);
     overflow: hidden;
     border-radius: 9px;
 }
 
-.registration-text-box{
-    padding: 3.6rem 6.4rem 6.4rem 6.4rem;
-    color: #001b00;
+.registration-text-box {
+  padding: 3.6rem 6.4rem 6.4rem 6.4rem;
+  color: #001b00;
 }
 
-.registration .heading-secondary{
-    color: inherit;
-    margin-bottom: 3.2rem;
+.registration .heading-secondary {
+  color: inherit;
+  margin-bottom: 3.2rem;
 }
 
-.registration-text{
-    font-size: 1.8rem;
-    line-height: 1.8;
-    margin-bottom: 4.8rem;
+.registration-text {
+  font-size: 2.8rem;
+  line-height: 1.8;
+  margin-bottom: 3.2rem;
 }
 
 .registration-img-box{
-    background-image: linear-gradient(to right bottom, rgba(233, 244, 215, 0.9), rgba(133, 218, 112, 0.5)), url("/assets/img/register.jpg");
+    background-image: linear-gradient(to right bottom, rgba(233, 244, 215, 0.1), rgba(133, 218, 112, 0.2)), url("/assets/img/mancare1.jpg");
     background-size: cover;
     background-position: center;    
 }
 
-.registration-form{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 3.2rem;
-    row-gap: 2.4rem;
+.registration-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
 }
 
-.registration-form label{
-    display: block;
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-bottom: 1.2rem;
+.registration-form label {
+  display: block;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
 }
 
-.registration-form input{
-    width: 100%;
-    padding: 1.2rem;
-    font-size: 1.8rem;
-    font-family: inherit;
-    color: inherit;
-    border: none;
-    background-color: #fdf2e9;
-    border-radius: 9px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.registration-form input {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background-color: #fdf2e9;
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.2rem;
 }
 
-.registration-form input::placeholder{
-    color: #aaa;
+.error-message {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: rgb(218, 9, 9);
 }
 
-.registration *:focus{
-    outline: none;
-    box-shadow: 0 0 0 0.8rem hsla(27, 83%, 95%, 0.5);
+.error-message-extended {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+  text-align: center;
+  color: rgb(218, 9, 9);
 }
 
-.btn--form{
-    background-color: #001b00;
-    color: #fff;
-    border-radius: 9px;
-    align-self: end;
-    padding: 1.2rem;
-    transition: all 0.5s;
-    font-size: 1.6rem;
-    cursor: pointer;
+.succes-message {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+  text-align: center;
+  color: rgb(13, 49, 13);
+  align-self: center;
 }
 
-.btn--form:hover, .btn--form:active{
-    background-color: #fff;
-    color: #333;
+.registration-form input::placeholder {
+  color: #aaa;
+}
+
+.registration *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem hsla(141, 78%, 18%, 0.5);
+}
+
+.btn--form {
+  background-color: #001b00;
+  color: #fff;
+  border-radius: 9px;
+  align-self: end;
+  padding: 1.2rem;
+  transition: all 0.5s;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.btn--form:hover,
+.btn--form:active {
+  background-color: #fff;
+  color: #333;
+}
+
+/* ------------------------------------------------- */
+/* ---------------- MEDIA QUERIES ------------------ */
+
+@media(max-width:58.625em){ 
+    .registration-form{
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 3.2rem;
+        row-gap: 2.4rem;
+    }  
+
+    .registration .heading-secondary{
+        margin-bottom: 2.2rem;
+        font-size: 4.2rem;
+    }
+}
+
+@media(max-width:39em){ 
+    .registration-form label{
+        font-size: 1.6rem;
+    }
+
+    .registration-form input{
+        font-size: 1.5rem;
+    }
+
+    .registration .heading-secondary{
+        font-size: 3rem;
+    }
+}
+
+@media(max-width:31.625em){ 
+    .registration .heading-secondary{
+        font-size: 2.4rem;
+    }
+}
+
+@media(max-width:27.375em){ 
+    .registration .heading-secondary{
+        font-size: 1.9rem;
+    }
+
+    .btn--form{
+        font-size: 1.2rem;
+    }
 }

@@ -1,21 +1,22 @@
 <body>
-<div class="home">
+<div class="home container">
     <div class="video-overlay"></div>
     <section class="hero-section">
         <div class="home-container">
             <div class="hero-text-box">
                 <h1 class="heading-primary heading-primary--hero" *ngIf="!isAuthenticated">Un corp sănătos are o greutate normală</h1>
+                <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated && isBanned">Contul este blocat.</h1>
                 <div *ngFor="let user of userInfo$ | async">
-                    <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated" >Bun venit înapoi, {{user.name}}!</h1>
+                    <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated && !isBanned" >Bun venit înapoi, {{user.name}}!</h1>
                 </div>
                 <p class="hero-text" *ngIf="!isAuthenticated">
                     Află mai multe despre aceasta aplicație
                 </p>
-                <p class="hero-text" *ngIf="isAuthenticated">
+                <p class="hero-text" *ngIf="isAuthenticated && !isBanned">
                     Vezi în ce parametri te afli
                 </p>
                 <a  routerLink="/about" class="btn btn--home" *ngIf="!isAuthenticated">Despre</a>
-                <a  routerLink="/calculator" class="btn btn--home" *ngIf="isAuthenticated">Calculeaza</a>
+                <a  routerLink="/calculator" class="btn btn--home" *ngIf="isAuthenticated && !isBanned">Calculează</a>
             </div>
         </div>
     </section>

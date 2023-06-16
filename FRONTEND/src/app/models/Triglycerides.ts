@@ -5,5 +5,6 @@ export interface Triglycerides {
     ldl: number,
     result: string,
     user: string,
-    date: Date
+    date: Date,
+    created: Date
 }

@@ -1,0 +1,107 @@
+<div class="history">
+  <h1>Istoric</h1>
+
+  <div class="select-wrapper">
+  <label for="tableOption">Alegeți tabelul:</label>
+  <select id="tableOption" [(ngModel)]="selectedTable">
+    <option value="bmi">Indice masă corporală</option>
+    <option value="rmb">Rata metabolică bazală</option>
+    <option value="tensiune arteriala">Tensiune arterială</option>
+    <option value="trigliceride">Trigliceride</option>
+    <option value="colesterol">Colesterol</option>
+  </select>
+</div>
+
+  <table *ngIf="selectedTable === 'bmi'">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Rezultat</th>
+        <th>Categorie</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bmi of userBMI$| async"> 
+        <td><strong>{{ bmi.date | date:'dd-MM-yyyy' }}</strong></td>
+        <td>{{bmi.result | number:'1.2-2' }} % grăsime corporală</td>
+        <td>{{bmi.category}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="selectedTable === 'rmb'">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Rezultat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rmb of userRMB$| async"> 
+        <td><strong>{{ rmb.date | date:'dd-MM-yyyy' }}</strong></td>
+        <td>{{ rmb.result }} calorii</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="selectedTable === 'tensiune arteriala'">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Presiune sistolică</th>
+        <th>Presiune diastolică</th>
+        <th>Rezultat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let at of userAT$| async"> 
+        <td><strong>{{ at.created | date:'dd-MM-yyyy' }}</strong></td>
+        <td>{{ at.sbp  }} </td>
+        <td>{{ at.dbp }} </td>
+        <td>{{ at.result }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="selectedTable === 'trigliceride'">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Colesterol</th>
+        <th>HDL</th>
+        <th>LDL</th>
+        <th>Rezultat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tri of userTR$| async"> 
+        <td><strong>{{ tri.created | date:'dd-MM-yyyy' }}</strong></td>
+        <td>{{ tri.colesterol}}</td>
+        <td>{{ tri.hdl}} </td>
+        <td>{{ tri.ldl}} </td>
+        <td>{{ tri.result}} </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="selectedTable === 'colesterol'">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>HDL</th>
+        <th>LDL</th>
+        <th>Trigliceride</th>
+        <th>Rezultat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let col of userCol$| async"> 
+        <td><strong>{{ col.created | date:'dd-MM-yyyy' }}</strong></td>
+        <td>{{ col.hdl }}</td>
+        <td>{{ col.ldl }}</td>
+        <td>{{ col.triglycerides }}</td>
+        <td>{{ col.result }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

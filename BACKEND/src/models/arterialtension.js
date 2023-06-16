@@ -60,8 +60,12 @@ module.exports = class ArterialTension {
     return db.execute(`SELECT result FROM arterialtension WHERE user = ? ORDER BY id`, [userId]);
   }
 
-  static fetchAllATDateById(userId) {
-    return db.execute(`SELECT created FROM arterialtension WHERE user = ? ORDER BY id`, [userId]);
+  static fetchAllATResultWithParamsById(userId) {
+    return db.execute(`SELECT sbp, dbp, result, created FROM arterialtension WHERE user = ? ORDER BY id DESC`, [userId]);
+  }
+
+  static fetchAllATResultWithParamsById(userId) {
+    return db.execute(`SELECT sbp, dbp, result, created FROM arterialtension WHERE user = ? AND result <> 'nedeterminat' ORDER BY id DESC`, [userId]);
   }
 
   static fetchATResultForAll() {

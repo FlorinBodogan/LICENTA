@@ -60,6 +60,10 @@ module.exports = class UserInfo {
         return db.execute(`SELECT result FROM rmb_results WHERE user = ? ORDER BY id`, [userId]);
     }
 
+    static fetchRmbAllResultWithParamsById(userId) {
+        return db.execute(`SELECT result, date FROM rmb_results WHERE user = ? ORDER BY id DESC`, [userId]);
+    }
+
     static fetchRmbDateById(userId) {
         return db.execute(`SELECT date FROM rmb_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
     }
@@ -115,8 +119,16 @@ module.exports = class UserInfo {
         return db.execute(`SELECT result FROM bmi_results WHERE user = ? ORDER BY id`, [userId]);
     }
 
+    static fetchBmiAllResultWithParamsById(userId) {
+        return db.execute(`SELECT result, category, date FROM bmi_results WHERE user = ? ORDER BY id DESC`, [userId]);
+    }
+
     static fetchBmiAllResult() {
         return db.execute(`SELECT result FROM bmi_results ORDER BY id`);
+    }
+
+    static fetchBmiAllResultWithParams() {
+        return db.execute(`SELECT result, category, date FROM bmi_results ORDER BY id`);
     }
 
     static fetchBmiAllCategories() {

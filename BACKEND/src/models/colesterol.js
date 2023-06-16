@@ -53,6 +53,10 @@ module.exports = class Colesterol {
     static fetchAllCOLResultById(userId) {
       return db.execute(`SELECT result FROM colesterol WHERE user = ? ORDER BY id`, [userId]);
     }
+
+    static fetchAllCOLResultWithParamsById(userId) {
+      return db.execute(`SELECT hdl, ldl, result, triglycerides, created FROM colesterol WHERE user = ? ORDER BY id DESC`, [userId]);
+    }
   
     static fetchAllCOLDateById(userId) {
       return db.execute(`SELECT created FROM colesterol WHERE user = ? ORDER BY id`, [userId]);

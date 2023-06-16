@@ -1,0 +1,41 @@
+<div class="admin-page">
+  <ng-container *ngFor="let user of users$ | async">
+    <form *ngIf="user.name === selectedUserName && showForm" [formGroup]="updateForm" (ngSubmit)="updateUser(user.name, updateForm.value)" #formDirective="ngForm" class="update-form grid-form">
+      <div>
+        <label for="name">Nume</label>
+        <input id="name" type="text" formControlName="name" placeholder="Ioan">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="Ioan@yahoo.com">
+      </div>
+      <button type="submit">Modifică</button>
+    </form>
+  </ng-container>
+
+  <table *ngIf="!showForm" class="container">
+    <tbody>
+      <tr class="headers">
+        <td>Index</td>
+        <td>Nume</td>
+        <td>Email</td>
+        <td>Rol</td>
+        <td>Status</td>
+        <td>Acțiuni</td>
+      </tr>
+      <tr *ngFor="let user of users$ | async; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.status }}</td>
+        <td class="buttons-users">
+          <button class="update-button" (click)="updateUserForm(user.name)">Modifică</button>
+          <button *ngIf="user.status === 'activ'" class="ban-button" (click)="banUser(user.name)">Banează</button>
+          <button *ngIf="user.status === 'banat'" class="unban-button" (click)="unBanUser(user.name)">Debanează</button>
+          <button class="delete-button" (click)="deleteUser(user.name)">Șterge</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

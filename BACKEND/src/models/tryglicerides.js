@@ -53,6 +53,10 @@ module.exports = class Triglycerides {
     static fetchAllTRResultById(userId) {
       return db.execute(`SELECT result FROM triglycerides WHERE user = ? ORDER BY id`, [userId]);
     }
+
+    static fetchAllTRResultWithParamsById(userId) {
+      return db.execute(`SELECT colesterol, hdl, ldl, result, created FROM triglycerides WHERE user = ? ORDER BY id DESC`, [userId]);
+    }
   
     static fetchAllTRDateById(userId) {
       return db.execute(`SELECT created FROM triglycerides WHERE user = ? ORDER BY id`, [userId]);

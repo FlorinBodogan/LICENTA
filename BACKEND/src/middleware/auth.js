@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 module.exports = (req, res, next) => {
     const authToken = req.get('Authorization');
@@ -27,5 +28,7 @@ module.exports = (req, res, next) => {
     req.isUserLogged = true;
     req.userId = decodedToken.userId;
     req.email = decodedToken.email;
+    req.role = decodedToken.role;
     next();
 };
+

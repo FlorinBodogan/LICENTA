@@ -1,7 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { faBars, faXmark, faHouse, faRightFromBracket, faCalculator, faRightToBracket, faUserPlus, faCircleInfo, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark, faHouse, faTools, faToolbox, faRightFromBracket, faCalculator, faRightToBracket, faUserPlus, faCircleInfo, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
 
 @Component({
   selector: 'app-header',
@@ -19,9 +20,14 @@ export class HeaderComponent implements OnInit {
   faCircleInfo = faCircleInfo;
   faChartSimple = faChartSimple;
   faUser = faUser;
+  faTools = faTools;
+  faToggleOn = faBars;
+  faToggleOff = faXmark;
   
-  isAuthenticated = false;
+  isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
   sticky: boolean = false;
+  isBanned: boolean = false;
 
   constructor(private authService: AuthService, private router: Router){}
 
@@ -29,12 +35,24 @@ export class HeaderComponent implements OnInit {
     this.authService.isUserLogged$.subscribe((isLogged) => {
       this.isAuthenticated = isLogged;
     })
+    this.authService.isAdmin$.subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+    })
+    this.authService.isUserBanned.subscribe((isBanned) => {
+      this.isBanned = isBanned;
+    });
+
   }
 
   logout(): void{
     localStorage.removeItem("token");
     this.authService.isUserLogged$.next(false);
+    this.authService.isAdmin$.next(false);
     this.router.navigate(["home"]);
+  }
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event) {
+    this.sticky = window.pageYOffset >= 5;
   }
 
   //MOBILE NAV

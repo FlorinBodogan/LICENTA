@@ -14,6 +14,9 @@ export class AuthService {
   private url = "http://localhost:3500/auth";
 
   isUserLogged$ = new BehaviorSubject<boolean>(false);
+  isAdmin$ = new BehaviorSubject<boolean>(false);
+  loginFailed$ = new BehaviorSubject<boolean>(false);
+  isUserBanned = new BehaviorSubject<boolean>(false);
 
   userId: Pick<User, "id">;
 
@@ -25,6 +28,23 @@ export class AuthService {
      private errorHandlerService: ErrorHandlerService,
      private router: Router
   ) { }
+
+  checkIfAdmin() {
+    const checkLogged = localStorage.getItem("token");
+
+    if (checkLogged !== null) {
+      const decodedToken: any = jwt_decode(checkLogged);
+      const roles = decodedToken.role;
+
+      if (roles && roles.includes('admin')) {
+        this.isAdmin$.next(true);
+      } else {
+        this.isAdmin$.next(false);
+      }
+    } else {
+      this.isAdmin$.next(false);
+    }
+  }
 
   register(user: Omit<User, "id">): Observable<User>{
     return this.http.post<User>(`${this.url}/register`, user, this.httpOptions).pipe(
@@ -45,6 +65,8 @@ export class AuthService {
           localStorage.setItem("user", JSON.stringify(response.user));
           this.isUserLogged$.next(true);
           this.router.navigate(["home"]);
+          this.checkIfAdmin();
+          this.isBannedUser(response.token);
         }),
         catchError(
           this.errorHandlerService.handleError<{
@@ -56,19 +78,42 @@ export class AuthService {
       );
   }
   
+  isBannedUser(token: string | null): boolean {
+    if (!token) {
+      this.isUserBanned.next(false);
+      return false;
+    }
 
-getUserIdFromToken(): Pick<User, "id"> | undefined {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return undefined;
+    try {
+      const decodedToken: any = jwt_decode(token);
+      const userStatus = decodedToken.status;
+      
+      if (userStatus === 'banat') {
+        this.isUserBanned.next(true);
+        return true;
+      } else {
+        this.isUserBanned.next(false);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error decoding JWT token:', error);
+      this.isUserBanned.next(false);
+      return false;
+    }
   }
 
-  const decodedToken = jwt_decode(token) as { userId: Pick<User, "id"> };
-  
-  // Retrieve the user id from local storage
-  const userId = JSON.parse(localStorage.getItem("userId") || "{}");
+  getUserIdFromToken(): Pick<User, "id"> | undefined {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return undefined;
+    }
 
-  return userId || decodedToken.userId;
-}
+    const decodedToken = jwt_decode(token) as { userId: Pick<User, "id"> };
+    
+    // Retrieve the user id from local storage
+    const userId = JSON.parse(localStorage.getItem("userId") || "{}");
+
+    return userId || decodedToken.userId;
+  }
 }
 

@@ -2,12 +2,8 @@
     <body>
         <div class="userprofile-container">
             <div class="userprofile" *ngFor="let user of userInfo$ | async">
-                <div class="dropdown">
-                    <button class="dropbtn">Statistici</button>
-                    <div class="dropdown-content">
-                        <a class="main-nav-link" (click)="selectComponent('BMI')">Indice Masă Corporală</a>
-                        <a class="main-nav-link" (click)="selectComponent('RMB')">Rată Metabolică Bazală</a>
-                    </div>
+                <div class="info-bar">
+                     <button class="history-button" routerLink="/history">Istoric <fa-icon [icon]="faMousePointer"></fa-icon></button>               
                 </div>
                 <div class="user-photo">                 
                     <!-- <form [formGroup]="uploadForm" (ngSubmit)="uploadPhoto()" enctype='multipart/form-data'>
@@ -38,7 +34,10 @@
                         <h2>Colesterol: {{user.result}}</h2>
                     </div>
                 </div>
-                <!-- <canvas id="chartBMI" class="userprofile-statistics-container" style="height: 350px; width: 800px;"></canvas> -->
+                <select id="tableOption" class="tableOption" [(ngModel)]="selectedComponent">
+                    <option value="BMI">Indice Masă Corporală</option>
+                    <option value="RMB">Rată Metabolică Bazală</option>
+                </select>
                 <div class="chart-box">
                     <app-rmb *ngIf="selectedComponent === 'RMB'"></app-rmb>
                     <app-bmi *ngIf="selectedComponent === 'BMI'"></app-bmi>

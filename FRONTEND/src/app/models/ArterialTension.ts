@@ -4,5 +4,6 @@ export interface ArterialTension {
     dbp: number,
     result: string,
     user: string,
-    date: Date
+    date: Date,
+    created: Date
 }

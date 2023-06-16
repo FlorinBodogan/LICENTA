@@ -80,6 +80,7 @@ exports.fetchRmbAllResultById = async(req, res, next) => {
     }
 }
 
+
 exports.fetchRmbAllResult = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
@@ -154,6 +155,7 @@ exports.fetchBmiAllResultById = async(req, res, next) => {
         next(e);
     }
 }
+
 
 exports.fetchBmiAllResult = async(req, res, next) => {
     try {
@@ -281,10 +283,13 @@ exports.postUserInforBmi = async (req, res, next) => {
     const user = req.body.user;
     const height = req.body.height;
     const weight = req.body.weight;
+
+    const centimeters = parseInt(height);
+    const heightInMeters = centimeters / 100;
     //BMI
     try {
       const bmiDetails = {
-        height: height,
+        height: heightInMeters,
         weight: weight,
         user: user
       }

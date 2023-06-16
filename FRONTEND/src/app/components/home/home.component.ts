@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HomeComponent implements OnInit {
     userId: Pick<User, "id">;
     userInfo$: Observable<User[]>;
-
+    isBanned: boolean = false;
     isAuthenticated = true;
 
     constructor(private authService: AuthService, private userService: UserService) {}
@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
       this.authService.isUserLogged$.subscribe((isLogged) => {
         this.isAuthenticated = isLogged;
       })
+      this.authService.isUserBanned.subscribe((isBanned) => {
+        this.isBanned = isBanned;
+      });
       this.userInfo$ = this.fetchUser();
       this.userId = this.userService.userId;
     }

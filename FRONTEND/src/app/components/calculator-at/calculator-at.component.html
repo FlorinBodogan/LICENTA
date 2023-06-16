@@ -3,18 +3,18 @@
         <div class="container">
             <div class="calculator">
                 <div class="calculator-text-box">
-                    <h2 class="heading-secondary form">Calculator Tensiune Arteriala</h2>
+                    <h2 class="heading-secondary form">Calculator Tensiune Arterială</h2>
                 </div>
                 <form (create)="collectDataAT()" [formGroup]="calculatorForm" (ngSubmit)="calculateAT(calculatorForm.value)" #formDirective="ngForm" class="calculator-form grid-form" action="#">
                     <div>
-                        <label for="sbp">Presiunea Sistolica</label>
+                        <label for="sbp">Presiunea Sistolică</label>
                         <input id="sbp" type="number" formControlName="sbp" placeholder="55 mm/HG" required>
                     </div>
                     <div>
-                        <label for="dbp">Presiunea Diastolica</label>
+                        <label for="dbp">Presiunea Diastolică</label>
                         <input id="dbp" type="number" formControlName="dbp" placeholder="175 mm/HG" required>
                     </div>              
-                    <button class="btn--form">Calculeaza</button>
+                    <button class="btn--form">Calculează</button>
                 </form>
                 <div class="calculator-result" *ngFor="let calculus of calculus$ | async">
                     <div class="result">

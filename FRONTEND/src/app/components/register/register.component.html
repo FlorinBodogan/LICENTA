@@ -1,35 +1,62 @@
 <body>
-<section class="registration-section">
+  <section class="registration-section">
     <div class="container">
-        <div class="registration">
-            <div class="registration-text-box">
-                <h2 class="heading-secondary">Inregistreaza-te</h2>
-                <p class="registration-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quos perferendis.                    
-                </p>
+      <div class="registration">
+        <div class="registration-text-box">
+          <h2 class="heading-secondary">Înregistrează-te</h2>
+          <p [ngClass]="{'succes-message': response === 'Contul a fost creat cu succes!',
+           'error-message-extended': response === 'Există deja un cont cu acest nume sau email.'}">{{response}}</p>
 
-                <form [formGroup]="registerForm" (ngSubmit)="register()" class="registration-form">
-                    <div>
-                        <label for="user-name">Nume utilizator</label>
-                        <input type="text" formControlName="name" placeholder="Popescu" required>
-                    </div>
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="email" formControlName="email" placeholder="user@example.com" required>
-                    </div>
-                    <div>
-                        <label for="password">Parola</label>
-                        <input type="password" formControlName="password" placeholder="Parola" required>
-                    </div>
-                    <div>
-                        <label for="password">Confirmare parola</label>
-                        <input type="password" formControlName="password"  placeholder="Parola" required>
-                    </div>
-                    <button class="btn--form">Creeaza cont</button>
-                </form> 
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register()"
+            class="registration-form"
+          >
+            <div>
+              <label for="user-name">Nume utilizator</label>
+              <input
+                type="text"
+                formControlName="name"
+                placeholder="Popescu"
+                required
+              />
+              <small class="error-message" *ngIf="submitted && registerForm.get('name')?.invalid">Numele are cel puțin 3 caractere</small>
             </div>
-                <div class="registration-img-box" role="img" aria-label="Ceva"></div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="user@example.com"
+                required
+              />
+              <small class="error-message" *ngIf="submitted && registerForm.get('email')?.invalid">Acesta nu este un email</small>
+            </div>
+            <div>
+              <label for="password">Parolă</label>
+              <input
+                type="password"
+                formControlName="password"
+                placeholder="Parola"
+                required
+              />
+              <small class="error-message" *ngIf="submitted && registerForm.get('password')?.invalid">Parola are cel puțin 6 caractere</small>
+            </div>
+            <div>
+              <label for="password">Confirmare parolă</label>
+              <input
+                type="password"
+                formControlName="confirmPassword"
+                placeholder="Parola"
+                required
+              />
+              <small class="error-message" *ngIf="submitted && registerForm.get('confirmPassword')?.invalid">Parola nu coincide</small>
+            </div>
+            <button class="btn--form">Creează cont</button>
+          </form>
         </div>
+      </div>
     </div>
-</section>
-<app-footer></app-footer>
-</body> 
+  </section>
+  <app-footer></app-footer>
+</body>

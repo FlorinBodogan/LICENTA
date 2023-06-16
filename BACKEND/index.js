@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const authRoutes = require('./src/routes/auth');
 const userinfoRoutes = require('./src/routes/userinfo');
+const userhistoryRoutes = require('./src/routes/userhistory');
 const userRoutes = require('./src/routes/user');
 const imageRoutes = require('./src/routes/images');
 const errorController = require('./src/controllers/error');
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRoutes);
 app.use('/userinfo', userinfoRoutes);
+app.use('/userhistory', userhistoryRoutes);
 app.use('/user', userRoutes);
 app.use('/images', imageRoutes);
 app.use('/arterialtension', arterialRoutes);
