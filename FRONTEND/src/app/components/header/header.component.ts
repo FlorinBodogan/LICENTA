@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { faBars, faXmark, faHouse, faTools, faToolbox, faRightFromBracket, faCalculator, faRightToBracket, faUserPlus, faCircleInfo, faChartSimple, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { AuthInterceptorService } from 'src/app/services/auth-interceptor.service';
 
 @Component({
   selector: 'app-header',
@@ -27,8 +26,7 @@ export class HeaderComponent implements OnInit {
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
   sticky: boolean = false;
-  isBanned: boolean = false;
-
+  
   constructor(private authService: AuthService, private router: Router){}
 
   ngOnInit(): void {
@@ -38,10 +36,6 @@ export class HeaderComponent implements OnInit {
     this.authService.isAdmin$.subscribe((isAdmin) => {
       this.isAdmin = isAdmin;
     })
-    this.authService.isUserBanned.subscribe((isBanned) => {
-      this.isBanned = isBanned;
-    });
-
   }
 
   logout(): void{
@@ -50,6 +44,7 @@ export class HeaderComponent implements OnInit {
     this.authService.isAdmin$.next(false);
     this.router.navigate(["home"]);
   }
+  
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
     this.sticky = window.pageYOffset >= 5;

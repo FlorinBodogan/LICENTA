@@ -38,6 +38,21 @@ exports.postInfoForAT = async (req, res, next) => {
     }
 };
 
+exports.fetchATResultForAll = async(req, res, next) => {
+    //STATISTICA TENSIUNE
+    try {
+        const [result] = await ArterialTension.fetchATResultForAll();
+        res.status(200).json(result);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+};
+
 exports.fetchATResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
@@ -73,21 +88,6 @@ exports.fetchAllATDateById = async(req, res, next) => {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
         const [at] = await ArterialTension.fetchAllATDateById(decodedToken.userId);
         res.status(200).json(at);
-
-    } catch(e){
-        if(!e.statusCode){
-            e.statusCode = 500;
-            console.log(e);
-        }
-        next(e);
-    }
-};
-
-exports.fetchATResultForAll = async(req, res, next) => {
-    try {
-        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [result] = await ArterialTension.fetchATResultForAll(decodedToken.userId);
-        res.status(200).json(result);
 
     } catch(e){
         if(!e.statusCode){

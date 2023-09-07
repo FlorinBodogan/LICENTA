@@ -4,7 +4,7 @@
   font-weight: 300;
   line-height: 1.42em;
   color:#A7A1AE;
-  background-image: url(/assets/img/userprofile2.jpg);
+  background-color: #000;
   background-size: cover;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .headers td {
-    background-color: #f5161689;
+    background-color: #16f56089;
     font-size: 3rem;
 }
 

@@ -6,19 +6,16 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BanGuardService {
+export class NonAuthGuardService {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const token = localStorage.getItem('token');
-
-    const isBanned = this.authService.isBannedUser(token);
-
-    if (isBanned) {
+   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    if (this.authService.isUserLogged$.value) {
       this.router.navigate(["home"]);
-      return of(false);
+      return false;
+    } else {
+      return true;
     }
-    return of(true);
   }
 }

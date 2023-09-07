@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     }
 
     if(!decodedToken){
-        const error = new Error('Nu este logat in cont');
+        const error = new Error('Utilizatorul nu este logat in cont');
         error.statusCode = 401;
         throw error;
     }

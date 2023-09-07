@@ -56,8 +56,8 @@
     <tbody>
       <tr *ngFor="let at of userAT$| async"> 
         <td><strong>{{ at.created | date:'dd-MM-yyyy' }}</strong></td>
-        <td>{{ at.sbp  }} </td>
-        <td>{{ at.dbp }} </td>
+        <td>{{ at.sbp  }} mm/HG</td>
+        <td>{{ at.dbp }} mm/HG</td>
         <td>{{ at.result }} </td>
       </tr>
     </tbody>
@@ -76,9 +76,9 @@
     <tbody>
       <tr *ngFor="let tri of userTR$| async"> 
         <td><strong>{{ tri.created | date:'dd-MM-yyyy' }}</strong></td>
-        <td>{{ tri.colesterol}}</td>
-        <td>{{ tri.hdl}} </td>
-        <td>{{ tri.ldl}} </td>
+        <td>{{ tri.colesterol}} mg/dL</td>
+        <td>{{ tri.hdl}} mg/dL</td>
+        <td>{{ tri.ldl}} mg/dL</td>
         <td>{{ tri.result}} </td>
       </tr>
     </tbody>
@@ -97,9 +97,9 @@
     <tbody>
       <tr *ngFor="let col of userCol$| async"> 
         <td><strong>{{ col.created | date:'dd-MM-yyyy' }}</strong></td>
-        <td>{{ col.hdl }}</td>
-        <td>{{ col.ldl }}</td>
-        <td>{{ col.triglycerides }}</td>
+        <td>{{ col.hdl }} mg/dL</td>
+        <td>{{ col.ldl }} mg/dL</td>
+        <td>{{ col.triglycerides }} mg/Dl</td>
         <td>{{ col.result }}</td>
       </tr>
     </tbody>

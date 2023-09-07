@@ -16,8 +16,20 @@
 .flex-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
+}
+
+.options{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.options-p {
+  font-size: 2rem;
+  color: #fff;
 }
 
 .results-container {
@@ -69,6 +81,8 @@ option:hover {
 
 .history-button:hover {
   background-color: #000;
+  color: #2cd929;
+  border: 2px solid #2cd929;
 }
 
 .user-name {

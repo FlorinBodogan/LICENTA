@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Images } from 'src/app/models/Images';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
-import { faUpload, faICursor, faMousePointer } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faICursor, faMousePointer, faArrowCircleLeft, faArrowLeftRotate } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { UserInfo } from 'src/app/models/UserInfo';
 import { ArterialTension } from 'src/app/models/ArterialTension';
@@ -21,6 +21,8 @@ Chart.register(...registerables);
 export class UserProfileComponent implements OnInit {
   faUpload = faUpload;
   faMousePointer = faMousePointer;
+  faArrowCircleLeft = faArrowCircleLeft;
+  faArrowLeftRotate = faArrowLeftRotate;
   uploadForm: FormGroup;
 
   userId: Pick<User, "id">;
@@ -34,7 +36,6 @@ export class UserProfileComponent implements OnInit {
   selectComponent(component: string) {
     this.selectedComponent = component;
   }
-
 
   //userPhoto$: Observable<Images[]>;
 

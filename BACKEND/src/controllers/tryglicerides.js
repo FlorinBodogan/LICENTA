@@ -42,6 +42,21 @@ exports.postInfoForTR = async (req, res, next) => {
     }
 };
 
+exports.fetchTRResultForAll = async(req, res, next) => {
+    //STATISTICA TRIGLICERIDE
+    try {
+        const [result] = await Triglycerides.fetchTRResultForAll();
+        res.status(200).json(result);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+};
+
 exports.fetchTRResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
@@ -77,21 +92,6 @@ exports.fetchAllTRDateById = async(req, res, next) => {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
         const [tr] = await Triglycerides.fetchAllTRDateById(decodedToken.userId);
         res.status(200).json(tr);
-
-    } catch(e){
-        if(!e.statusCode){
-            e.statusCode = 500;
-            console.log(e);
-        }
-        next(e);
-    }
-};
-
-exports.fetchTRResultForAll = async(req, res, next) => {
-    try {
-        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [result] = await Triglycerides.fetchTRResultForAll(decodedToken.userId);
-        res.status(200).json(result);
 
     } catch(e){
         if(!e.statusCode){

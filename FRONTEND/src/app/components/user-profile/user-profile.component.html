@@ -3,7 +3,7 @@
         <div class="userprofile-container">
             <div class="userprofile" *ngFor="let user of userInfo$ | async">
                 <div class="info-bar">
-                     <button class="history-button" routerLink="/history">Istoric <fa-icon [icon]="faMousePointer"></fa-icon></button>               
+                     <button class="history-button" routerLink="/history">Istoric <fa-icon [icon]="faArrowCircleLeft"></fa-icon></button>               
                 </div>
                 <div class="user-photo">                 
                     <!-- <form [formGroup]="uploadForm" (ngSubmit)="uploadPhoto()" enctype='multipart/form-data'>
@@ -25,7 +25,7 @@
             <div class="flex-container">
                 <div class="results-container">
                     <div class="card" *ngFor="let user of userAT$ | async">
-                        <h2>Tensiune Arteriala: {{user.result}}</h2>
+                        <h2>Tensiune Arterială: {{user.result}}</h2>
                     </div>
                     <div class="card" *ngFor="let user of userTR$ | async">
                         <h2>Trigliceride: {{user.result}}</h2>
@@ -34,10 +34,13 @@
                         <h2>Colesterol: {{user.result}}</h2>
                     </div>
                 </div>
-                <select id="tableOption" class="tableOption" [(ngModel)]="selectedComponent">
-                    <option value="BMI">Indice Masă Corporală</option>
-                    <option value="RMB">Rată Metabolică Bazală</option>
-                </select>
+                <div class="options">
+                    <p class="options-p">Alegeți graficul:</p>
+                    <select id="tableOption" class="tableOption" [(ngModel)]="selectedComponent">
+                        <option value="BMI">Indice Masă Corporală</option>
+                        <option value="RMB">Rată Metabolică Bazală</option>
+                    </select>
+                </div>
                 <div class="chart-box">
                     <app-rmb *ngIf="selectedComponent === 'RMB'"></app-rmb>
                     <app-bmi *ngIf="selectedComponent === 'BMI'"></app-bmi>

@@ -41,6 +41,21 @@ exports.postInfoForCOL = async (req, res, next) => {
     }
 };
 
+exports.fetchCOLResultForAll = async(req, res, next) => {
+    //STATISTICA COLESTEROL
+    try {
+        const [result] = await Colesterol.fetchCOLResultForAll();
+        res.status(200).json(result);
+
+    } catch(e){
+        if(!e.statusCode){
+            e.statusCode = 500;
+            console.log(e);
+        }
+        next(e);
+    }
+};
+
 exports.fetchCOLResultById = async(req, res, next) => {
     try {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
@@ -76,21 +91,6 @@ exports.fetchAllCOLDateById = async(req, res, next) => {
         let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
         const [col] = await Colesterol.fetchAllCOLDateById(decodedToken.userId);
         res.status(200).json(col);
-
-    } catch(e){
-        if(!e.statusCode){
-            e.statusCode = 500;
-            console.log(e);
-        }
-        next(e);
-    }
-};
-
-exports.fetchCOLResultForAll = async(req, res, next) => {
-    try {
-        let decodedToken = await jwt.verify(req.headers.authorization.split(" ")[1], 'secretWebToken');
-        const [result] = await Colesterol.fetchCOLResultForAll(decodedToken.userId);
-        res.status(200).json(result);
 
     } catch(e){
         if(!e.statusCode){

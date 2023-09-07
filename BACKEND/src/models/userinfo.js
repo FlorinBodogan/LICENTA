@@ -52,6 +52,30 @@ module.exports = class UserInfo {
     }
 
     //RATA METABOLICA BAZALA
+    static calculateRmb(rmbDetails) {
+        if (isNaN(rmbDetails.weight) || isNaN(rmbDetails.height) || isNaN(rmbDetails.age)) {
+            throw new Error("Valori invalide");
+        }
+
+        let rmb;
+        if (rmbDetails.gender === "masculin") {
+            rmb = 88.362 + (13.397 * rmbDetails.weight) + (4.799 * rmbDetails.height) - (5.677 * rmbDetails.age);
+        } else {
+            rmb = 447.593 + (9.247 * rmbDetails.weight) + (3.098 * rmbDetails.height) - (4.330 * rmbDetails.age);
+        }
+        if(rmbDetails.activitylevel === "sedentar") {
+            return rmb * 1.2;
+        } else if (rmbDetails.activitylevel === "scazut") {
+            return rmb * 1.375;
+        } else if (rmbDetails.activitylevel === "moderat") {
+            return rmb * 1.55;
+        } else if (rmbDetails.activitylevel === "ridicat") {
+            return rmb * 1.725;
+        } else if (rmbDetails.activitylevel === "foarteridicat") {
+            return rmb * 1.9;
+        }
+    }
+    
     static fetchRmbResultById(userId) {
         return db.execute(`SELECT * FROM rmb_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
     }
@@ -86,31 +110,29 @@ module.exports = class UserInfo {
         );
     }
 
-    static calculateRmb(rmbDetails) {
-        if (isNaN(rmbDetails.weight) || isNaN(rmbDetails.height) || isNaN(rmbDetails.age)) {
-            throw new Error("Valori invalide");
+    //INDICE DE MASA CORPORALA
+    static calculateBmi(bmiDetails) {
+        if (isNaN(bmiDetails.weight) || isNaN(bmiDetails.height)) {
+          throw new Error("Valori invalide");
         }
-
-        let rmb;
-        if (rmbDetails.gender === "masculin") {
-            rmb = 88.362 + (13.397 * rmbDetails.weight) + (4.799 * rmbDetails.height) - (5.677 * rmbDetails.age);
-        } else {
-            rmb = 447.593 + (9.247 * rmbDetails.weight) + (3.098 * rmbDetails.height) - (4.330 * rmbDetails.age);
+      
+        const bmi = bmiDetails.weight / (bmiDetails.height * bmiDetails.height);
+        const roundedBmi = bmi.toFixed(2);
+      
+        let category = "";
+        if (roundedBmi < 18.5) {
+          category = "Subponderal";
+        } else if (18.5 <= roundedBmi && roundedBmi < 25) {
+          category = "Normal";
+        } else if (25 <= roundedBmi && roundedBmi < 30) {
+          category = "Supraponderal";
+        } else if (roundedBmi >= 30) {
+          category = "Obez";
         }
-        if(rmbDetails.activitylevel === "sedentar") {
-            return rmb * 1.2;
-        } else if (rmbDetails.activitylevel === "scazut") {
-            return rmb * 1.375;
-        } else if (rmbDetails.activitylevel === "moderat") {
-            return rmb * 1.55;
-        } else if (rmbDetails.activitylevel === "ridicat") {
-            return rmb * 1.725;
-        } else if (rmbDetails.activitylevel === "foarteridicat") {
-            return rmb * 1.9;
-        }
+      
+        return { bmi: roundedBmi, category };
     }
 
-    //INDICE DE MASA CORPORALA
     static fetchBmiResultById(userId) {
         return db.execute(`SELECT * FROM bmi_results WHERE user = ? ORDER BY id DESC LIMIT 1`, [userId]);
     }
@@ -172,28 +194,6 @@ module.exports = class UserInfo {
         );
     }
 
-    static calculateBmi(bmiDetails) {
-        if (isNaN(bmiDetails.weight) || isNaN(bmiDetails.height)) {
-          throw new Error("Valori invalide");
-        }
-      
-        const bmi = bmiDetails.weight / (bmiDetails.height * bmiDetails.height);
-        const roundedBmi = bmi.toFixed(2);
-      
-        let category = "";
-        if (roundedBmi < 18.5) {
-          category = "Subponderal";
-        } else if (18.5 <= roundedBmi && roundedBmi < 25) {
-          category = "Normal";
-        } else if (25 <= roundedBmi && roundedBmi < 30) {
-          category = "Supraponderal";
-        } else if (roundedBmi >= 30) {
-          category = "Obez";
-        }
-      
-        return { bmi: roundedBmi, category };
-    }
-
     static async getCountForBmiCategory(category) {
         try {
           const [rows, fields] = await db.execute(
@@ -209,13 +209,5 @@ module.exports = class UserInfo {
     static delete(id) {
         return db.execute('DELETE FROM userinfo WHERE id = ?', [id]);
     }
-
-    //TENSIUNE ARTERIALA
-
-
-    //COLESTEROL
-
-
-    //TRIGLICERIDE
     
 };

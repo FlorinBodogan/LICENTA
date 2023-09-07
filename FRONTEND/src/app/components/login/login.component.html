@@ -5,6 +5,7 @@
         <div class="registration-text-box">
           <h2 class="heading-secondary">Loghează-te</h2>
           <p class="error-message-extended" *ngIf="submitted && loginFailed">Numele sau parola incorecte.</p>
+          <p class="error-message-extended" *ngIf="submitted && loginFailedDueToBannedUser">Contul este blocat.</p>
           <form
             [formGroup]="loginForm"
             (ngSubmit)="login()"

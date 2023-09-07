@@ -19,7 +19,6 @@
         <td>Index</td>
         <td>Nume</td>
         <td>Email</td>
-        <td>Rol</td>
         <td>Status</td>
         <td>Acțiuni</td>
       </tr>
@@ -27,7 +26,6 @@
         <td>{{ i + 1 }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.role }}</td>
         <td>{{ user.status }}</td>
         <td class="buttons-users">
           <button class="update-button" (click)="updateUserForm(user.name)">Modifică</button>

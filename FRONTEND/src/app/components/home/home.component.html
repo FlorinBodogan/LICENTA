@@ -4,13 +4,18 @@
     <section class="hero-section">
         <div class="home-container">
             <div class="hero-text-box">
-                <h1 class="heading-primary heading-primary--hero" *ngIf="!isAuthenticated">Un corp sănătos are o greutate normală</h1>
+                <h3 class="heading-tertiary heading-tertiary--hero" *ngIf="!isAuthenticated">- Oferim</h3>
+                <h1 class="heading-primary heading-primary--hero" *ngIf="!isAuthenticated">Aplicația perfectă pentru sănătatea ta</h1>
                 <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated && isBanned">Contul este blocat.</h1>
                 <div *ngFor="let user of userInfo$ | async">
-                    <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated && !isBanned" >Bun venit înapoi, {{user.name}}!</h1>
+                    <div *ngFor="let user of userInfo$ | async">
+                        <h1 class="heading-primary heading-primary--hero" *ngIf="isAuthenticated && !isBanned">
+                            Bun venit înapoi, <span style="color: #3eb058">{{user.name}}</span>!
+                        </h1>
+                    </div>
                 </div>
                 <p class="hero-text" *ngIf="!isAuthenticated">
-                    Află mai multe despre aceasta aplicație
+                    Află mai multe
                 </p>
                 <p class="hero-text" *ngIf="isAuthenticated && !isBanned">
                     Vezi în ce parametri te afli

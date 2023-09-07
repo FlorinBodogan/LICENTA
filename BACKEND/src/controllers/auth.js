@@ -16,6 +16,7 @@ exports.register = async(req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const role = 'user';
+    const status = 'activ';
 
     try{
         const hashPassword = await bcrypt.hash(password, 11);
@@ -24,7 +25,8 @@ exports.register = async(req, res, next) => {
             name: name,
             email: email,
             password: hashPassword,
-            role: role
+            role: role,
+            status: status
         };
 
         const result = await User.save(userDetails);

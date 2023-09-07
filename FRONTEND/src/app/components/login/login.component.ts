@@ -11,12 +11,18 @@ import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   loginFailed: boolean = false;
+  loginFailedDueToBannedUser: boolean = false;
+
   submitted: boolean = false;
 
   constructor(private authService: AuthService, private errorHandlerService: ErrorHandlerService){}
 
   ngOnInit(): void {
     this.loginForm = this.createFormGroup();
+
+    this.authService.loginFailedDueToBannedUser.subscribe((loginFailedDueToBannedUser) => {
+      this.loginFailedDueToBannedUser = loginFailedDueToBannedUser;
+    })
   }
 
   createFormGroup(): FormGroup{

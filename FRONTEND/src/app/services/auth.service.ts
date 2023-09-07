@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { first, catchError, tap } from 'rxjs/operators';
 import { User } from '../models/User';
 import { ErrorHandlerService } from './error-handler.service';
@@ -17,6 +17,7 @@ export class AuthService {
   isAdmin$ = new BehaviorSubject<boolean>(false);
   loginFailed$ = new BehaviorSubject<boolean>(false);
   isUserBanned = new BehaviorSubject<boolean>(false);
+  loginFailedDueToBannedUser = new BehaviorSubject<boolean>(false);
 
   userId: Pick<User, "id">;
 
@@ -54,47 +55,55 @@ export class AuthService {
   }
 
   login({ name, password }: { name: Pick<User, "name">; password: Pick<User, "password">; }): Observable<{ token: string; userId: Pick<User, "id">; user: User; }> {
-    return this.http
-      .post(`${this.url}/login`, { name, password }, this.httpOptions)
-      .pipe(
-        first(Object),
-        tap((response) => {
-          console.log('Response:', response);
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("userId", JSON.stringify(response.userId));
-          localStorage.setItem("user", JSON.stringify(response.user));
-          this.isUserLogged$.next(true);
-          this.router.navigate(["home"]);
-          this.checkIfAdmin();
-          this.isBannedUser(response.token);
-        }),
-        catchError(
-          this.errorHandlerService.handleError<{
-            token: string;
-            userId: Pick<User, "id">;
-            user: User;
-          }>("login")
-        )
-      );
-  }
+  return this.http
+    .post(`${this.url}/login`, { name, password }, this.httpOptions)
+    .pipe(
+      first(Object),
+      tap((response) => {
+        const isBanned = this.isBannedUser(response);
+
+        if (isBanned) {
+          this.loginFailedDueToBannedUser.next(true);
+          throw new Error('User is banned');
+        }
+
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("userId", JSON.stringify(response.userId));
+        localStorage.setItem("user", JSON.stringify(response.user));
+        this.isUserLogged$.next(true);
+        this.loginFailedDueToBannedUser.next(false);
+        this.router.navigate(["home"]);
+        this.checkIfAdmin();
+      }),
+      catchError(
+        this.errorHandlerService.handleError<{
+          token: string;
+          userId: Pick<User, "id">;
+          user: User;
+        }>("login")
+      )
+    );
+}
+
+
   
-  isBannedUser(token: string | null): boolean {
-    if (!token) {
+  isBannedUser(response: { token: string }): boolean {
+  if (!response.token) {
+    this.isUserBanned.next(false);
+    return false;
+  }
+
+  try {
+    const decodedToken: any = jwt_decode(response.token);
+    const userStatus = decodedToken.status;
+
+    if (userStatus === 'banat') {
+      this.isUserBanned.next(true);
+      return true;
+    } else {
       this.isUserBanned.next(false);
       return false;
     }
-
-    try {
-      const decodedToken: any = jwt_decode(token);
-      const userStatus = decodedToken.status;
-      
-      if (userStatus === 'banat') {
-        this.isUserBanned.next(true);
-        return true;
-      } else {
-        this.isUserBanned.next(false);
-        return false;
-      }
     } catch (error) {
       console.error('Error decoding JWT token:', error);
       this.isUserBanned.next(false);
@@ -109,8 +118,6 @@ export class AuthService {
     }
 
     const decodedToken = jwt_decode(token) as { userId: Pick<User, "id"> };
-    
-    // Retrieve the user id from local storage
     const userId = JSON.parse(localStorage.getItem("userId") || "{}");
 
     return userId || decodedToken.userId;

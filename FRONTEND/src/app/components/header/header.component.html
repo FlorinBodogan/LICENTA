@@ -5,26 +5,26 @@
                 <a routerLink="/home" class="nav-home-link" routerLinkActive="active"><fa-icon [icon]="faHouse"></fa-icon></a>
             </div>
                 <ul class="nav-bar-list">
-                    <li><a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/about" routerLinkActive="active">Despre</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/about" routerLinkActive="active">Despre</a></li>
                     <li>
-                        <div class="dropdown" *ngIf="isAuthenticated && !isBanned">
+                        <div class="dropdown" *ngIf="isAuthenticated">
                             <button class="dropbtn">Calculator</button>
                             <div class="dropdown-content">
-                                <a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/calculator" routerLinkActive="active">Calculator RMB</a>
-                                <a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/calculatorBMI" routerLinkActive="active">Calculator BMI</a>
-                                <a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/calculatorAT" routerLinkActive="active">Calculator Tensiune</a>
-                                <a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/calculatorTR" routerLinkActive="active">Calculator Trigliceride</a>
-                                <a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/calculatorCOL" routerLinkActive="active">Calculator Colesterol</a>
+                                <a (click)="selectPage()" class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/calculator" routerLinkActive="active">Calculator RMB</a>
+                                <a (click)="selectPage()" class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/calculatorBMI" routerLinkActive="active">Calculator BMI</a>
+                                <a (click)="selectPage()" class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/calculatorAT" routerLinkActive="active">Calculator Tensiune</a>
+                                <a (click)="selectPage()" class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/calculatorTR" routerLinkActive="active">Calculator Trigliceride</a>
+                                <a (click)="selectPage()" class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/calculatorCOL" routerLinkActive="active">Calculator Colesterol</a>
                             </div>
                         </div>                                   
                     </li>
-                    <li><a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/userprofile" routerLinkActive="active">Contul Meu</a></li>
-                    <li><a class="nav-bar-link" *ngIf="isAuthenticated && !isBanned" routerLink="/statistics" routerLinkActive="active">Statistici</a></li>
-                    <li><a class="nav-bar-link" *ngIf="isAuthenticated && isAdmin" routerLink="/ControlPanel" routerLinkActive="active">Panoul de control</a></li>
-                    <li><a class="nav-bar-link" *ngIf="!isAuthenticated && !isBanned" routerLink="/about" routerLinkActive="active">Despre</a></li>
-                    <li><a class="nav-bar-link" *ngIf="!isAuthenticated" routerLink="/login" routerLinkActive="active">Logare</a></li>                  
-                    <li><a class="nav-bar-link" *ngIf="!isAuthenticated" routerLink="/register" routerLinkActive="active">Inregistrare</a></li>
-                    <li><a class="btns btn--nav" *ngIf="isAuthenticated " (click)="logout()" routerLink="/login">Delogare</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/userprofile" routerLinkActive="active">Contul Meu</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="isAuthenticated" routerLink="/statistics" routerLinkActive="active">Statistici</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="isAuthenticated && isAdmin" routerLink="/ControlPanel" routerLinkActive="active">Panoul de control</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="!isAuthenticated" routerLink="/about" routerLinkActive="active">Despre</a></li>
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="!isAuthenticated" routerLink="/login" routerLinkActive="active">Logare</a></li>                  
+                    <li (click)="selectPage()"><a class="nav-bar-link" *ngIf="!isAuthenticated" routerLink="/register" routerLinkActive="active">Inregistrare</a></li>
+                    <li (click)="selectPage()"><a class="btns btn--nav" *ngIf="isAuthenticated" (click)="logout()" routerLink="/login">Delogare</a></li>
                 </ul>
                  <button class="btn-mobile-nav" (click)="toggleMenu()">
                     <fa-icon [icon]="isMenuOpen ? faToggleOff : faToggleOn" name="menu-outline" class="icon"></fa-icon>

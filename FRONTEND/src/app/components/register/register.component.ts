@@ -37,8 +37,8 @@ export class RegisterComponent implements OnInit {
     const confirmPassword = control.get('confirmPassword')?.value;
 
     if (password !== confirmPassword) {
-      control.get('confirmPassword')?.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
+      control.get('confirmPassword')?.setErrors({ passwordWrong: true });
+      return { passwordWrong: true };
     }
 
     return null;
@@ -46,17 +46,17 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     this.submitted = true;
-  if (this.registerForm.valid) {
-    this.registerSucceded = true;
-    this.authService.register(this.registerForm.value).subscribe((response: any) => {
-    this.response = response.message;
-  });
-  } else {
-    Object.keys(this.registerForm.controls).forEach(controlName => {
-      const control = this.registerForm.controls[controlName];
-      control.markAsTouched();
+    if (this.registerForm.valid) {
+      this.registerSucceded = true;
+      this.authService.register(this.registerForm.value).subscribe((response: any) => {
+      this.response = response.message;
     });
-  }
+    } else {
+      Object.keys(this.registerForm.controls).forEach(controlName => {
+        const control = this.registerForm.controls[controlName];
+        control.markAsTouched();
+      });
+    }
   }
 
 }

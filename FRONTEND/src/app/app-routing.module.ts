@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutmeComponent } from './components/aboutme/aboutme.component';
 import { CalculatorComponent } from './components/calculatorRmb/calculator.component';
@@ -21,27 +20,26 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
 
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminGuardService } from './services/admin-guard.service';
-import { BanGuardService } from './services/ban-guard.service';
+import { NonAuthGuardService } from './services/non-auth-guard.service';
 
 const routes: Routes = [
   {path: "", redirectTo:"/home", pathMatch:"full"},
   {path: "home", component: HomeComponent},
-  {path: "about", component: AboutmeComponent, canActivate: [BanGuardService]},
-  {path: "calculator", component: CalculatorComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "calculatorAT", component: CalculatorATComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "calculatorTR", component: CalculatorTRComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "statistics", component: StatisticsComponent, canActivate: [BanGuardService]},
-  {path: "register", component: RegisterComponent},
-  {path: "footer", component: FooterComponent},
-  {path: "login", component: LoginComponent},
+  {path: "about", component: AboutmeComponent},
+  {path: "calculator", component: CalculatorComponent, canActivate: [AuthGuardService]},
+  {path: "calculatorAT", component: CalculatorATComponent, canActivate: [AuthGuardService]},
+  {path: "calculatorTR", component: CalculatorTRComponent, canActivate: [AuthGuardService]},
+  {path: "statistics", component: StatisticsComponent, canActivate: [AuthGuardService]},
+  {path: "register", component: RegisterComponent, canActivate: [NonAuthGuardService]},
+  {path: "login", component: LoginComponent, canActivate: [NonAuthGuardService]},
   {path: "header", component: HeaderComponent},
-  {path: "userprofile", component: UserProfileComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "calculatorBMI", component: CalculatorBmiComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "calculatorCOL", component: CalculatorCOLComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "bmi", component: BmiComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "rmb", component: RmbComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "history", component: UserHistoryComponent, canActivate: [AuthGuardService, BanGuardService]},
-  {path: "ControlPanel", component: AdminPageComponent, canActivate: [AuthGuardService, AdminGuardService, BanGuardService]},
+  {path: "userprofile", component: UserProfileComponent, canActivate: [AuthGuardService]},
+  {path: "calculatorBMI", component: CalculatorBmiComponent, canActivate: [AuthGuardService]},
+  {path: "calculatorCOL", component: CalculatorCOLComponent, canActivate: [AuthGuardService]},
+  {path: "bmi", component: BmiComponent, canActivate: [AuthGuardService]},
+  {path: "rmb", component: RmbComponent, canActivate: [AuthGuardService]},
+  {path: "history", component: UserHistoryComponent, canActivate: [AuthGuardService]},
+  {path: "ControlPanel", component: AdminPageComponent, canActivate: [AuthGuardService, AdminGuardService]},
 ];
 
 @NgModule({

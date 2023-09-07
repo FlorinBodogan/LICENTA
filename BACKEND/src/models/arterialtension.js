@@ -70,14 +70,14 @@ module.exports = class ArterialTension {
 
   static fetchATResultForAll() {
     return db.execute(`
-    SELECT ui.user, ui.result
-    FROM arterialtension ui
-    INNER JOIN (
-      SELECT user, MAX(id) AS max_id
-      FROM arterialtension
-      GROUP BY user
-    ) max_ids
-    ON ui.user = max_ids.user AND ui.id = max_ids.max_id`
+      SELECT ui.user, ui.result
+      FROM arterialtension ui
+      INNER JOIN (
+        SELECT user, MAX(id) AS max_id
+        FROM arterialtension
+        GROUP BY user
+      ) max_ids
+      ON ui.user = max_ids.user AND ui.id = max_ids.max_id`
     );
   }
 

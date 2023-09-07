@@ -137,7 +137,7 @@ displayChartBmi() {
       }]
     },
     options: {
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -166,16 +166,6 @@ displayChartBmi() {
       }
     }
   });
-
-  const countObservables = [];
-  countObservables.push(this.calculatorService.getCountForBmiCategory('Subponderal'));
-  countObservables.push(this.calculatorService.getCountForBmiCategory('Normal'));
-  countObservables.push(this.calculatorService.getCountForBmiCategory('Supraponderal'));
-  countObservables.push(this.calculatorService.getCountForBmiCategory('Obez'));
-
-  forkJoin(countObservables).subscribe(counts => {
-    this.updateChartDataBmi(counts);
-  });
 }
 
 displayChartActivity() {
@@ -192,7 +182,7 @@ displayChartActivity() {
       }]
     },
     options: {
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -221,17 +211,6 @@ displayChartActivity() {
       }
     }
   });
-
-  const countObservables = [];
-  countObservables.push(this.calculatorService.getCountForActivity('Sedentar'));
-  countObservables.push(this.calculatorService.getCountForActivity('Scazut'));
-  countObservables.push(this.calculatorService.getCountForActivity('Moderat'));
-  countObservables.push(this.calculatorService.getCountForActivity('Ridicat'));
-  countObservables.push(this.calculatorService.getCountForActivity('Foarteridicat'));
-
-  forkJoin(countObservables).subscribe(counts => {
-    this.updateChartDataActivity(counts);
-  });
 }
 
 displayChartArterial() {
@@ -248,7 +227,7 @@ displayChartArterial() {
       }]
     },
     options: {
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -277,19 +256,6 @@ displayChartArterial() {
       }
     }
   });
-
-  const countObservables = [];
-  countObservables.push(this.calculatorService.getCountForATCategory('Optim'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Normal'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Normal crescut'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Gradul I de hipertensiune'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Gradul II de hipertensiune'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Gradul III de hipertensiune'));
-  countObservables.push(this.calculatorService.getCountForATCategory('Hipertensiune izolata sistolica'));
-
-  forkJoin(countObservables).subscribe(counts => {
-    this.updateChartDataArterial(counts);
-  });
 }
 
 displayChartTryglicerides() {
@@ -306,7 +272,7 @@ displayChartTryglicerides() {
       }]
     },
     options: {
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -334,16 +300,6 @@ displayChartTryglicerides() {
         }
       }
     }
-  });
-
-  const countObservables = [];
-  countObservables.push(this.calculatorService.getCountForTRCategory('Normal'));
-  countObservables.push(this.calculatorService.getCountForTRCategory('Limita Normalului'));
-  countObservables.push(this.calculatorService.getCountForTRCategory('Ridicat'));
-  countObservables.push(this.calculatorService.getCountForTRCategory('Foarte Ridicat'));
-
-  forkJoin(countObservables).subscribe(counts => {
-    this.updateChartDataTryglicerides(counts);
   });
 }
 
@@ -361,7 +317,7 @@ displayChartColesterol() {
       }]
     },
     options: {
-      aspectRatio: 2,
+      aspectRatio: 2.5,
       scales: {
         x: {
           beginAtZero: true,
@@ -389,15 +345,6 @@ displayChartColesterol() {
         }
       }
     }
-  });
-
-  const countObservables = [];
-  countObservables.push(this.calculatorService.getCountForCOLCategory('Normal'));
-  countObservables.push(this.calculatorService.getCountForCOLCategory('Limita Normalului'));
-  countObservables.push(this.calculatorService.getCountForCOLCategory('Ridicat'));
-
-  forkJoin(countObservables).subscribe(counts => {
-    this.updateChartDataColesterol(counts);
   });
 }
 

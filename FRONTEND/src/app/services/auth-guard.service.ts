@@ -11,19 +11,11 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+
     if (!this.authService.isUserLogged$.value) {
       this.router.navigate(["home"]);
       return of(false);
     }
-    const token = localStorage.getItem('token');
-
-    const isBanned = this.authService.isBannedUser(token);
-
-    if (isBanned) {
-      this.router.navigate(["home"]);
-      return of(false);
-    }
-
     return this.authService.isUserLogged$;
   }
 
